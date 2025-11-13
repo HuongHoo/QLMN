@@ -13,7 +13,7 @@ class LopHocController extends Controller
     public function index()
     {
         $lophoc = LopHoc::paginate(10); // Lấy tất cả dữ liệu từ bảng lophoc
-        return view('lophoc.index', compact('lophoc')); // Trả về
+        return view('admin.lophoc.index', compact('lophoc')); // Trả về
     }
 
     /**
@@ -21,7 +21,7 @@ class LopHocController extends Controller
      */
     public function create()
     {
-        return view('lophoc.create');
+        return view('admin.lophoc.create');
     }
 
     /**
@@ -29,7 +29,17 @@ class LopHocController extends Controller
      */
     public function store(Request $request)
     {
-        // Add validation and store logic
+        $request->validate([
+            'tenlop' => 'required|string|max:100',
+            'nhomtuoi' => 'required|string|max:50',
+            'siso' => 'required|numeric|min:1',
+        ]);
+
+        LopHoc::create($request->all());
+
+        return redirect()
+            ->route('admin.lophoc.index')
+            ->with('success', 'Lớp học đã được thêm thành công!');
     }
 
     /**
@@ -46,7 +56,7 @@ class LopHocController extends Controller
     public function edit($id)
     {
         $lophoc = LopHoc::findOrFail($id);
-        return view('lophoc.edit', compact('lophoc'));
+        return view('admin.lophoc.edit', compact('lophoc'));
     }
 
     /**
@@ -54,7 +64,18 @@ class LopHocController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Add validation and update logic
+        $request->validate([
+            'tenlop' => 'required|string|max:100',
+            'nhomtuoi' => 'required|string|max:50',
+            'siso' => 'required|numeric|min:1',
+        ]);
+
+        $lophoc = LopHoc::findOrFail($id);
+        $lophoc->update($request->all());
+
+        return redirect()
+            ->route('admin.lophoc.index')
+            ->with('success', 'Lớp học đã được cập nhật thành công!');
     }
 
     /**
@@ -62,6 +83,11 @@ class LopHocController extends Controller
      */
     public function destroy($id)
     {
-        // Add delete logic
+        $lophoc = LopHoc::findOrFail($id);
+        $lophoc->delete();
+
+        return redirect()
+            ->route('admin.lophoc.index')
+            ->with('success', 'Lớp học đã được xóa thành công!');
     }
 }

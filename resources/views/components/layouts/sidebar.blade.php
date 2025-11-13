@@ -9,14 +9,21 @@
 
     <hr class="sidebar-divider my-0">
 
-    @foreach ($menu as $item)
-        @if (isset($item['childmenu']))
+    @php
+        // support both variable names: $menus (from component) or $menu (legacy)
+        $items = $menus ?? $menu ?? [];
+    @endphp
+
+    @foreach ($items as $item)
+        @if (!empty($item['childmenu']) && is_array($item['childmenu']))
             {{-- Menu có submenu --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
                    data-target="#collapse-{{ $item['key'] }}" aria-expanded="false"
                    aria-controls="collapse-{{ $item['key'] }}">
-                    <i class="{{ $item['icon'] }}"></i>
+                    @if(!empty($item['icon']))
+                        <i class="{{ $item['icon'] }}"></i>
+                    @endif
                     <span>{{ $item['name'] }}</span>
                 </a>
                 <div id="collapse-{{ $item['key'] }}" class="collapse"
@@ -24,8 +31,19 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ $item['name'] }}</h6>
                         @foreach ($item['childmenu'] as $child)
-                            <a class="collapse-item" href="{{ route($child['route']) }}">
-                                <i class="{{ $child['icon'] }}"></i> {{ $child['name'] }}
+                            @php
+                                $childHref = '#';
+                                if (!empty($child['route']) && \Illuminate\Support\Facades\Route::has($child['route'])) {
+                                    $childHref = route($child['route']);
+                                } elseif (!empty($child['url'])) {
+                                    $childHref = $child['url'];
+                                }
+                            @endphp
+                            <a class="collapse-item" href="{{ $childHref }}">
+                                @if(!empty($child['icon']))
+                                    <i class="{{ $child['icon'] }}"></i>
+                                @endif
+                                {{ $child['name'] }}
                             </a>
                         @endforeach
                     </div>
@@ -34,8 +52,18 @@
         @else
             {{-- Menu không có submenu --}}
             <li class="nav-item">
-                <a class="nav-link" href="{{ route($item['route']) }}">
-                    <i class="{{ $item['icon'] }}"></i>
+                @php
+                    $href = '#';
+                    if (!empty($item['route']) && \Illuminate\Support\Facades\Route::has($item['route'])) {
+                        $href = route($item['route']);
+                    } elseif (!empty($item['url'])) {
+                        $href = $item['url'];
+                    }
+                @endphp
+                <a class="nav-link" href="{{ $href }}">
+                    @if(!empty($item['icon']))
+                        <i class="{{ $item['icon'] }}"></i>
+                    @endif
                     <span>{{ $item['name'] }}</span>
                 </a>
             </li>

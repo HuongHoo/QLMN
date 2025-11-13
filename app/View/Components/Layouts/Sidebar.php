@@ -22,28 +22,68 @@ class Sidebar extends Component
     public function render(): View|Closure|string
     {
         $menu = [
-           ['key' => 'dashboard',
+            [
+                'key' => 'dashboard',
                 'name' => 'Trang chủ',
                 'route' => 'admin.welcome',
-               'icon' => 'bi bi-house',
-        ],
-           [ 'key' => 'lophoc',
-                'name' => 'Lớp học',
-                'route' => 'lophoc.index',
-                'icon' => 'bi bi-house-door',
-                'childmenu'=>[
-                    ['key' => 'lophoc',
-                    'name' => 'Lớp học',
-                    'route' => 'lophoc.index',
-                    'icon' => 'bi bi-house-door',
-                ],
+                'icon' => 'bi bi-house',
+            ],
+            // [
+            //     'key' => 'lophoc',
+            //     'name' => 'Lớp học',
+            //     'route' => 'lophoc.index',
+            //     'icon' => 'bi bi-folder',
+            //     'childmenu' => [
+            //         [
+            //             'key' => 'lophoc',
+            //             'name' => 'Lớp học',
+            //             'route' => 'lophoc.index',
+            //             'icon' => 'bi bi-house-door',
+            //         ],
 
-                ]
-        ],
-    ];
+
+            //     ]
+            // ],
+            [
+                'key' => 'nguoidung',
+                'name' => 'Người dùng',
+                'route' => 'admin.nguoidung.index',
+                'icon' => 'bi bi-people',
+            ],
+            [
+                'key' => 'lophoc',
+                'name' => 'Lớp học',
+                'route' => 'admin.lophoc.index',
+                'icon' => 'bi bi-folder',
+            ],
+            [
+                'key' => 'giaovien',
+                'name' => 'Giáo viên',
+                'route' => 'admin.giaovien.index',
+                'icon' => 'bi bi-person-badge',
+            ],
+            [
+                'key' => 'phuhuynh',
+                'name' => 'Phụ huynh',
+                'route' => 'admin.phuhuynh.index',
+                'icon' => 'bi bi-person-lines-fill',
+            ],
+            [
+                'key' => 'hocsinh',
+                'name' => 'Học sinh',
+                'route' => 'admin.hocsinh.index',
+                'icon' => 'bi bi-mortarboard',
+            ],
+            [
+                'key' => 'diemdanh',
+                'name' => 'Điểm danh',
+                'route' => 'admin.diemdanh.index',
+                'icon' => 'bi bi-journal-check',
+            ],
+        ];
 
         return view('components.layouts.sidebar',  [
             'menu' => $menu,
-    ]);
+        ]);
     }
 }

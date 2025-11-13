@@ -21,8 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'vaitro',
+        'trangthai',
     ];
-
+    public function giaoVien()
+    {
+        return $this->hasOne(GiaoVien::class);
+    }
+    public function phuHuynh()
+    {
+        return $this->hasOne(PhuHuynh::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,5 +53,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin()
+    {
+        return $this->vaitro === 'admin';
+    }
+
+    public function isTeacher()
+    {
+        return $this->vaitro === 'teacher';
+    }
+
+    public function isParent()
+    {
+        return $this->vaitro === 'parent';
     }
 }

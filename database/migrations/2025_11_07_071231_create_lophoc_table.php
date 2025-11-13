@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('lophoc', function (Blueprint $table) {
             $table->id();
-            $table->string('tenlop', 100);
-            $table->string('nhomtuoi', 50);
-            $table->integer('siso');
-            $table->string('sophong', 20);
-            $table->string('nienkhoa', 9); 
+            $table->string('tenlop', 100)->nullable();
+            $table->string('nhomtuoi', 50)->nullable();
+            $table->integer('siso')->nullable();
+            $table->string('sophong', 20)->nullable();
+            $table->string('nienkhoa', 9)->nullable();
+            $table->time('giobatdau')->default('07:00:00')->nullable();
+            $table->time('gioketthuc')->default('14:30:00')->nullable();
             $table->string('ghichu')->nullable();
             $table->timestamps();
         });
