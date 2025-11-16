@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('hocphi', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->foreignId('mahocsinh')->nullable()->constrained('hocsinh')->onDelete('set null');
+            $table->date('thoigiandong')->nullable();
+            $table->decimal('hocphi', 15, 2)->nullable();
+            $table->decimal('tienansang', 15, 2)->nullable();
+            $table->decimal('tienantrua', 15, 2)->nullable();
+            $table->decimal('tienxebus', 15, 2)->nullable();
+            $table->decimal('phikhac', 15, 2)->nullable();
+            $table->decimal('tongtien', 15, 2)->nullable();
+            $table->date('ngaythanhtoan')->nullable();
+            $table->decimal('dathanhtoan', 15, 2)->nullable();
+            $table->foreignId('magiaovien')->nullable()->constrained('giaovien')->onDelete('set null');
+            $table->string('ghichu')->nullable();
             $table->timestamps();
         });
     }

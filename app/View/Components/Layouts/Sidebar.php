@@ -92,6 +92,12 @@ class Sidebar extends Component
                 'route' => 'admin.suckhoe.index',
                 'icon' => 'bi bi-heart-pulse',
             ],
+            [
+                'key' => 'hocphi',
+                'name' => 'Học phí',
+                'route' => 'admin.hocphi.index',
+                'icon' => 'bi bi-cash-stack',
+            ],
         ];
 
         return view('components.layouts.sidebar',  [

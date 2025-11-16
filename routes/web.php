@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\HocSinhController;
 use App\Http\Controllers\Admin\DiemDanhController;
 use App\Http\Controllers\Admin\DanhGiaController;
 use App\Http\Controllers\Admin\SucKhoeController;
+use App\Http\Controllers\Admin\HocPhiController;
 
 
 // Route::get('/', function () {
@@ -43,6 +44,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('danhgia', DanhGiaController::class)->names('admin.danhgia');
     //sức khỏe
     Route::resource('suckhoe', SucKhoeController::class)->names('admin.suckhoe');
+    //học phí
+    Route::resource('hocphi', HocPhiController::class)->names('admin.hocphi');
 });
 
 // Route::prefix('teacher')->middleware('teacher')->group(function () {
