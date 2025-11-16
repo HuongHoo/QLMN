@@ -80,6 +80,18 @@ class Sidebar extends Component
                 'route' => 'admin.diemdanh.index',
                 'icon' => 'bi bi-journal-check',
             ],
+            [
+                'key' => 'danhgia',
+                'name' => 'Đánh giá',
+                'route' => 'admin.danhgia.index',
+                'icon' => 'bi bi-star-half',
+            ],
+            [
+                'key' => 'suckhoe',
+                'name' => 'Sức khỏe',
+                'route' => 'admin.suckhoe.index',
+                'icon' => 'bi bi-heart-pulse',
+            ],
         ];
 
         return view('components.layouts.sidebar',  [

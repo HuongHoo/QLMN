@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LopHocController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GiaoVienController;
-use App\Http\Controllers\PhuHuynhController;
-use App\Http\Controllers\HocSinhController;
-use App\Http\Controllers\DiemDanhController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LopHocController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\GiaoVienController;
+use App\Http\Controllers\Admin\PhuHuynhController;
+use App\Http\Controllers\Admin\HocSinhController;
+use App\Http\Controllers\Admin\DiemDanhController;
+use App\Http\Controllers\Admin\DanhGiaController;
+use App\Http\Controllers\Admin\SucKhoeController;
+
 
 // Route::get('/', function () {
 //     return view('admin.welcome');
@@ -36,9 +39,20 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('hocsinh', HocSinhController::class)->names('admin.hocsinh');
     Route::resource('diemdanh', DiemDanhController::class)->names('admin.diemdanh');
     Route::get('admin/diemdanh/{id}', [DiemDanhController::class, 'show'])->name('admin.diemdanh.show');
+    // Đánh giá
+    Route::resource('danhgia', DanhGiaController::class)->names('admin.danhgia');
+    //sức khỏe
+    Route::resource('suckhoe', SucKhoeController::class)->names('admin.suckhoe');
 });
 
-
+// Route::prefix('teacher')->middleware('teacher')->group(function () {
+//     Route::get('/teacher', function () {
+//         return view('Teacher.teacher');
+//     })->name('Teacher.teacher');
+// });
 Route::get('/teacher', function () {
     return view('Teacher.teacher');
 })->name('Teacher.teacher');
+// Route::get('/Teacher/chatbot', function () {
+//     return view('Teacher.chatbot'); // tạo resources/views/chatbot.blade.php
+// });

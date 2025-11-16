@@ -418,6 +418,30 @@
         <script src="{{ asset('admin/js/ruang-admin.min.js') }}"></script>
         <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
         <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
+        <button id="chatbot-btn"
+            style="position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px 15px;border:none;border-radius:50%;background:#007bff;color:white;font-size:20px;cursor:pointer;">
+            💬
+        </button>
+
+        <script>
+            const btn = document.getElementById('chatbot-btn');
+            btn.onclick = function() {
+                let iframe = document.getElementById('chatbot-frame');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.id = 'chatbot-frame';
+                    iframe.src = '{{ route('Teacher.chatbot.index') }}';
+                    iframe.style =
+                        'position:fixed;bottom:80px;right:20px;width:350px;height:450px;border:1px solid #ccc;border-radius:10px;background:white;z-index:9999;';
+                    document.body.appendChild(iframe);
+                } else {
+                    iframe.style.display = (iframe.style.display === "none") ? "block" : "none";
+                }
+            };
+        </script>
+
+
+
 </body>
 
 </html>

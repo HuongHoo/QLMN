@@ -139,10 +139,10 @@
     {{-- Thống kê tổng quan --}}
     <div class="mb-4 d-flex flex-wrap">
         @php
-            $tongVang = $hocsinh->diemdanh->where('trangthai', 'vắng')->count();
+            $tongVang = $hocsinh->diemdanh->where('trangthai', 'vắng mặt')->count();
             $tongTre = $hocsinh->diemdanh->where('trangthai', 'trễ')->count();
-            $tongDungGio = $hocsinh->diemdanh->where('trangthai', 'đúng giờ')->count();
-            $tongPhep = $hocsinh->diemdanh->where('trangthai', 'có phép')->count();
+            $tongDungGio = $hocsinh->diemdanh->where('trangthai', 'có mặt')->count();
+            $tongPhep = $hocsinh->diemdanh->where('trangthai', 'nghỉ phép')->count();
         @endphp
         <div class="card-stat">
             <span>Tổng số buổi vắng</span>

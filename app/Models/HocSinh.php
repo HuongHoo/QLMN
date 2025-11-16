@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DanhGia;
 
 class HocSinh extends Model
 {
@@ -34,5 +35,20 @@ class HocSinh extends Model
     public function diemdanh()
     {
         return $this->hasMany(DiemDanh::class, 'mahocsinh');
+    }
+
+    public function suckhoe()
+    {
+        return $this->hasMany(SucKhoe::class, 'mahocsinh', 'id');
+    }
+
+    public function danhgia()
+    {
+        return $this->hasMany(DanhGia::class, 'mahocsinh', 'id');
+    }
+
+    public function latestDanhgia()
+    {
+        return $this->hasOne(DanhGia::class, 'mahocsinh', 'id')->latestOfMany();
     }
 }
