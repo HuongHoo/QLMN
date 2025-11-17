@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\DiemDanhController;
 use App\Http\Controllers\Admin\DanhGiaController;
 use App\Http\Controllers\Admin\SucKhoeController;
 use App\Http\Controllers\Admin\HocPhiController;
+use App\Http\Controllers\Teacher\QuanlyhocsinhController;
+use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\ThongtincanhanController;
 
 
 // Route::get('/', function () {
@@ -28,8 +31,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/nguoidung', function () {
-    return view('user.home');
-})->name('user.home');
+    return view('parent.home');
+})->name('parent.home');
 
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/welcome', [AdminController::class, 'index'])->name('admin.welcome');
@@ -48,14 +51,15 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('hocphi', HocPhiController::class)->names('admin.hocphi');
 });
 
-// Route::prefix('teacher')->middleware('teacher')->group(function () {
-//     Route::get('/teacher', function () {
-//         return view('Teacher.teacher');
-//     })->name('Teacher.teacher');
-// });
-Route::get('/teacher', function () {
-    return view('Teacher.teacher');
-})->name('Teacher.teacher');
+Route::prefix('teacher')->middleware('teacher')->group(function () {
+
+    Route::get('/', [TeacherController::class, 'index'])->name('teacher.teacher');
+    Route::resource('hocsinh', QuanlyhocsinhController::class)->names('teacher.hocsinh');
+    Route::resource('thongtincanhan', ThongtincanhanController::class)->names('teacher.thongtincanhan');
+});
+// Route::get('/teacher', function () {
+//     return view('teacher.teacher');
+// })->name('teacher.teacher');
 // Route::get('/Teacher/chatbot', function () {
 //     return view('Teacher.chatbot'); // tạo resources/views/chatbot.blade.php
 // });

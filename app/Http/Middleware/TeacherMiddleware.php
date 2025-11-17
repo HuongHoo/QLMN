@@ -17,7 +17,7 @@ class TeacherMiddleware
     {
         $user = $request->user();
         if (!$user || !$user->isTeacher()) {
-            return redirect("/giaovien");
+            return redirect("/nguoidung");
         }
         return $next($request);
     }
