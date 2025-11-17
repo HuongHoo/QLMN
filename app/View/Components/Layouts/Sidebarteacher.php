@@ -46,7 +46,18 @@ class Sidebarteacher extends Component
                 'route' => 'teacher.hocsinh.index',
                 'icon' => 'bi bi-house-door',
             ],
-
+            [
+                'key' => 'diemdanh',
+                'name' => 'Điểm danh hằng ngày',
+                'route' => 'teacher.diemdanh.index',
+                'icon' => 'bi bi-house-door',
+            ],
+            [
+                'key' => 'thongbao',
+                'name' => 'Thông báo',
+                'route' => 'teacher.thongbao.index',
+                'icon' => 'bi bi-bell',
+            ],
 
             //     ]
             // ],

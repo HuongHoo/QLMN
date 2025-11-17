@@ -18,4 +18,12 @@ class LopHoc extends Model
         'gioketthuc',
         'ghichu',
     ];
+
+    /**
+     * Get all students in this class.
+     */
+    public function hocsinh()
+    {
+        return $this->hasMany(HocSinh::class, 'malop', 'id');
+    }
 }

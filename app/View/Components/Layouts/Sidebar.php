@@ -98,6 +98,12 @@ class Sidebar extends Component
                 'route' => 'admin.hocphi.index',
                 'icon' => 'bi bi-cash-stack',
             ],
+            [
+                'key' => 'thongbao',
+                'name' => 'Duyệt thông báo',
+                'route' => 'admin.thongbao.index',
+                'icon' => 'bi bi-clipboard-check',
+            ],
         ];
 
         return view('components.layouts.sidebar',  [

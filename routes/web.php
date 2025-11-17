@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\HocPhiController;
 use App\Http\Controllers\Teacher\QuanlyhocsinhController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\ThongtincanhanController;
+use App\Http\Controllers\Teacher\DDlopController;
+use App\Http\Controllers\Admin\DuyetThongBaoController;
+use App\Http\Controllers\Teacher\ThongBaoController;
 
 
 // Route::get('/', function () {
@@ -49,6 +52,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('suckhoe', SucKhoeController::class)->names('admin.suckhoe');
     //học phí
     Route::resource('hocphi', HocPhiController::class)->names('admin.hocphi');
+    // Duyệt thông báo
+    Route::get('/thongbao', [DuyetThongBaoController::class, 'index'])->name('admin.thongbao.index');
+    Route::get('/thongbao/history', [DuyetThongBaoController::class, 'history'])->name('admin.thongbao.history');
+    Route::get('/thongbao/{id}', [DuyetThongBaoController::class, 'show'])->name('admin.thongbao.show');
+    Route::post('/thongbao/{id}/approve', [DuyetThongBaoController::class, 'approve'])->name('admin.thongbao.approve');
+    Route::post('/thongbao/{id}/reject', [DuyetThongBaoController::class, 'reject'])->name('admin.thongbao.reject');
 });
 
 Route::prefix('teacher')->middleware('teacher')->group(function () {
@@ -56,6 +65,9 @@ Route::prefix('teacher')->middleware('teacher')->group(function () {
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.teacher');
     Route::resource('hocsinh', QuanlyhocsinhController::class)->names('teacher.hocsinh');
     Route::resource('thongtincanhan', ThongtincanhanController::class)->names('teacher.thongtincanhan');
+    Route::get('teacher/diemdanh', [DDlopController::class, 'index'])->name('teacher.diemdanh.index');
+    Route::post('teacher/diemdanh', [DDlopController::class, 'store'])->name('teacher.diemdanh.store');
+    Route::resource('thongbao', ThongBaoController::class)->names('teacher.thongbao');
 });
 // Route::get('/teacher', function () {
 //     return view('teacher.teacher');

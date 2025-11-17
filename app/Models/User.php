@@ -26,7 +26,7 @@ class User extends Authenticatable
         'vaitro',
         'trangthai',
     ];
-    public function giaoVien()
+    public function giaovien()
     {
         return $this->hasOne(GiaoVien::class, 'user_id', 'id');
     }

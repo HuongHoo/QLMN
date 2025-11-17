@@ -101,7 +101,7 @@
 
             <!-- User Info -->
             <div class="user-info d-flex align-items-center">
-                <span class="me-3 text-white fw-semibold">Xin chào, {{ Auth::user()->name }}</span>
+                <span class="me-3 text-white fw-semibold">Xin chào, {{ Auth::user()->name ?? 'parent' }}</span>
                 <form method="POST" action="{{ route('logout') }}" class="m-0">
                     @csrf
                     <button type="submit" class="btn btn-outline-light btn-sm rounded-pill px-3">Đăng xuất</button>

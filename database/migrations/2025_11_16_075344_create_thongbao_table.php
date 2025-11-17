@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('tepdinhkem')->nullable();
             $table->date('ngaytao')->nullable();
             $table->foreignId('magiaovien')->nullable()->constrained('giaovien')->onDelete('set null');
-
             $table->foreignId('malop')->nullable()->constrained('lophoc')->onDelete('set null');
-            $table->enum('trangthai', ['chờ duyệt', 'đã duyệt','từ chối'])->default('chờ duyệt')->nullable();
-              $table->date('ngaygui')->nullable();
+            $table->enum('trangthai', ['chờ duyệt', 'đã duyệt', 'từ chối'])->default('chờ duyệt')->nullable();
+            $table->date('ngaygui')->nullable();
+            $table->string('lydotuchoi')->nullable();
             $table->timestamps();
         });
     }
