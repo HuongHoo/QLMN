@@ -4,6 +4,9 @@
     <div class="container-fluid">
 
         <h3 class="mb-4">Điểm danh hằng ngày</h3>
+        <a href="{{ route('teacher.diemdanh.history') }}" class="btn btn-info mb-3">
+            <i class="bi bi-clock-history"></i> Xem lịch sử điểm danh
+        </a>
 
         {{-- Thông báo --}}
         @if (session('success'))
@@ -15,9 +18,9 @@
 
             {{-- Chọn ngày điểm danh --}}
             <div class="form-group mb-3">
-                <label for="ngay">Chọn ngày điểm danh</label>
-                <input type="date" name="ngay" id="ngay" class="form-control"
-                    value="{{ old('ngay', date('Y-m-d')) }}" required>
+                <label for="ngaydiemdanh">Chọn ngày điểm danh</label>
+                <input type="date" name="ngaydiemdanh" id="ngaydiemdanh" class="form-control"
+                    value="{{ old('ngaydiemdanh', date('Y-m-d')) }}" required>
             </div>
 
             <div class="card shadow mb-4">
@@ -31,8 +34,6 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Học sinh</th>
-                                    <th>Giờ đến</th>
-                                    <th>Phút trễ</th>
                                     <th>Trễ</th>
                                     <th>Có mặt</th>
                                     <th>Vắng</th>
@@ -48,17 +49,6 @@
                                             <strong>{{ $hs->tenhocsinh }}</strong><br>
                                             <small class="text-muted">Mã: {{ $hs->mathe }}</small>
                                             <input type="hidden" name="mahocsinh[]" value="{{ $hs->id }}">
-                                        </td>
-
-                                        {{-- Giờ đến --}}
-                                        <td>
-                                            <input type="time" name="gioden[]" class="form-control gioden">
-                                        </td>
-
-                                        {{-- Phút trễ --}}
-                                        <td>
-                                            <input type="number" name="sophuttre[]" class="form-control sophuttre"
-                                                readonly>
                                         </td>
 
                                         {{-- Checkbox trễ --}}

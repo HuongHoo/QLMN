@@ -18,7 +18,7 @@
                     <div class="col-md-4 text-center border-right">
                         <div class="mb-3">
                             @if ($teacher->anh)
-                                <img src="{{ asset($teacher->anh) }}" class="rounded-circle shadow"
+                                <img src="{{ asset('storage/' . $teacher->anh) }}" class="rounded-circle shadow"
                                     style="width:160px;height:160px;object-fit:cover;border:4px solid #e3f2fd;">
                             @else
                                 <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center shadow"

@@ -1,0 +1,530 @@
+/**
+ * Custom Admin Theme - Matching Home Page Colors
+ * Primary: #667eea → #764ba2 (Lighter Purple Gradient)
+ * Accent: #ff6b35 (Orange) - Điểm nhấn
+ */
+
+:root {
+    --admin-primary: #667eea;
+    --admin-primary-dark: #667eea;
+    --admin-secondary: #764ba2;
+    --admin-accent: #ff6b35;
+    --admin-accent-dark: #e55a2b;
+    --admin-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --admin-gradient-light: linear-gradient(135deg, #764ba2 0%, #c4b5fd 100%);
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+    background: linear-gradient(180deg, #667eea 0%, #667eea 100%) !important;
+}
+
+.sidebar .nav-item .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.sidebar .nav-item .nav-link:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar .nav-item .nav-link i {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.sidebar .nav-item .nav-link:hover i {
+    color: #ff6b35 !important;
+}
+
+.sidebar .nav-item.active .nav-link {
+    color: #fff !important;
+    background: rgba(255, 107, 53, 0.3);
+    border-left: 4px solid #ff6b35;
+}
+
+.sidebar .sidebar-brand {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff !important;
+}
+
+.sidebar .sidebar-brand-text {
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.sidebar .sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.sidebar .collapse-inner {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .collapse-header {
+    color: #667eea !important;
+    font-weight: 600;
+}
+
+.sidebar .collapse-item {
+    color: #333 !important;
+}
+
+.sidebar .collapse-item:hover {
+    background: #ff6b35 !important;
+    color: #fff !important;
+}
+
+.sidebar .collapse-item.active {
+    background: #ff6b35 !important;
+    color: #fff !important;
+}
+
+/* Sidebar Toggle Button */
+#sidebarToggle,
+#sidebarToggleTop {
+    background: #ff6b35 !important;
+    color: #fff !important;
+}
+
+#sidebarToggle:hover,
+#sidebarToggleTop:hover {
+    background: #e55a2b !important;
+}
+
+/* ==================== TOPBAR/NAVBAR ==================== */
+.navbar.bg-navbar,
+.topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.topbar .nav-item .nav-link {
+    color: #fff !important;
+}
+
+.topbar .nav-item .nav-link:hover {
+    color: #ff6b35 !important;
+}
+
+.topbar .topbar-divider {
+    border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.topbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+.topbar .dropdown-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #667eea 0%, #667eea 100%) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important;
+    border: none !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #e55a2b 0%, #ff6b35 100%) !important;
+    color: #fff !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%) !important;
+    border: none !important;
+}
+
+.btn-outline-primary {
+    border-color: #667eea !important;
+    color: #667eea !important;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+}
+
+/* ==================== CARDS ==================== */
+.card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-header {
+    background: transparent !important;
+    border-bottom: 1px solid #eee !important;
+    padding: 1.25rem !important;
+}
+
+.card-header h6 {
+    color: #667eea !important;
+    font-weight: 600 !important;
+}
+
+/* Stats Cards - MỚI với màu cam điểm nhấn */
+.card.border-left-primary {
+    border-left: 4px solid #667eea !important;
+}
+
+.card.border-left-primary:hover {
+    border-left-color: #ff6b35 !important;
+}
+
+.card.border-left-success {
+    border-left: 4px solid #10b981 !important;
+}
+
+.card.border-left-info {
+    border-left: 4px solid #764ba2 !important;
+}
+
+.card.border-left-warning {
+    border-left: 4px solid #ff6b35 !important;
+}
+
+.card .text-primary {
+    color: #667eea !important;
+}
+
+.card .text-warning {
+    color: #ff6b35 !important;
+}
+
+.card .text-info {
+    color: #764ba2 !important;
+}
+
+/* Card with gradient background */
+.card.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.card.bg-warning {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+}
+
+/* ==================== TABLES ==================== */
+.table thead th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff !important;
+    font-weight: 600;
+    border: none !important;
+    padding: 15px 12px;
+}
+
+.table thead th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.table thead th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(139, 92, 246, 0.08) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(139, 92, 246, 0.03);
+}
+
+/* ==================== FORMS ==================== */
+.form-control:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25) !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #667eea !important;
+    border-color: #667eea !important;
+}
+
+/* ==================== PAGINATION ==================== */
+.page-item.active .page-link {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    border-color: #ff6b35 !important;
+}
+
+.page-link {
+    color: #667eea !important;
+}
+
+.page-link:hover {
+    color: #ff6b35 !important;
+    background: rgba(255, 107, 53, 0.1);
+}
+
+/* ==================== BADGES ==================== */
+.badge-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    color: #fff !important;
+}
+
+.badge-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+/* ==================== PROGRESS BARS ==================== */
+.progress-bar.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.progress-bar.bg-warning {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+}
+
+.progress-bar.bg-info {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+}
+
+/* ==================== ALERTS ==================== */
+.alert-primary {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.alert-warning {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: #ff6b35;
+    color: #e55a2b;
+}
+
+.alert-info {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: #764ba2;
+    color: #667eea;
+}
+
+/* ==================== ICON CIRCLES ==================== */
+.icon-circle.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.icon-circle.bg-warning {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+}
+
+.icon-circle.bg-info {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+}
+
+/* ==================== SCROLL TO TOP ==================== */
+.scroll-to-top {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+}
+
+.scroll-to-top:hover {
+    background: linear-gradient(135deg, #e55a2b 0%, #ff6b35 100%) !important;
+}
+
+/* ==================== FOOTER ==================== */
+.sticky-footer {
+    background: #f8f9fc !important;
+    border-top: 1px solid #e3e6f0;
+}
+
+/* ==================== BREADCRUMB ==================== */
+.breadcrumb-item a {
+    color: #667eea !important;
+}
+
+.breadcrumb-item.active {
+    color: #ff6b35 !important;
+}
+
+/* ==================== TEXT COLORS ==================== */
+.text-primary {
+    color: #667eea !important;
+}
+
+.text-warning {
+    color: #ff6b35 !important;
+}
+
+.text-info {
+    color: #764ba2 !important;
+}
+
+/* ==================== LINKS ==================== */
+a {
+    color: #667eea;
+}
+
+a:hover {
+    color: #ff6b35;
+}
+
+/* ==================== DROPDOWN ==================== */
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: rgba(139, 92, 246, 0.1) !important;
+    color: #667eea !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    color: #fff !important;
+}
+
+/* ==================== MODAL ==================== */
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header .close {
+    color: #fff;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-footer .btn-primary {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+}
+
+/* ==================== SPECIAL ACCENT ELEMENTS ==================== */
+/* Số liệu thống kê quan trọng */
+.font-weight-bold.text-primary {
+    color: #ff6b35 !important;
+}
+
+/* Highlighted numbers */
+h1.text-primary,
+h2.text-primary,
+h3.text-primary {
+    color: #ff6b35 !important;
+}
+
+/* Action buttons với màu cam */
+.btn-action,
+.btn-edit,
+.btn-view {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+/* Quick action cards */
+.quick-action-card {
+    border-left: 4px solid #ff6b35 !important;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-orange {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Notification badge pulse */
+.badge-counter {
+    animation: pulse-orange 2s infinite;
+}
+
+/* ==================== DASHBOARD STATS ==================== */
+.h5.mb-0.font-weight-bold {
+    color: #333 !important;
+}
+
+/* ==================== NAV TABS ==================== */
+.nav-tabs .nav-link.active {
+    color: #ff6b35 !important;
+    border-bottom: 3px solid #ff6b35 !important;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #667eea !important;
+}
+
+/* ==================== CUSTOM STATS CARDS ==================== */
+/* Card số 4 - Phụ huynh với màu cam */
+.card.border-left-warning .text-xs {
+    color: #ff6b35 !important;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        z-index: 1000;
+    }
+}

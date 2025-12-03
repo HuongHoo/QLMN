@@ -14,6 +14,7 @@ class ThongBao extends Model
         'loaithongbao',
         'tepdinhkem',
         'ngaytao',
+        'user_id',
         'magiaovien',
         'malop',
         'trangthai',
@@ -40,5 +41,10 @@ class ThongBao extends Model
     public function lophoc()
     {
         return $this->belongsTo(LopHoc::class, 'malop');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

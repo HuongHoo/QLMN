@@ -30,13 +30,55 @@ class DDlopController extends Controller
         $hocsinh = $lophoc->hocsinh()->orderBy('tenhocsinh')->get();
         return view('teacher.diemdanh.index', compact('hocsinh', 'gioVaoHoc'));
     }
+    public function history()
+    {
+        $giaovien = Auth::user()->giaovien;
+        if (!$giaovien) {
+            return abort(404, 'Không tìm thấy thông tin giáo viên.');
+        }
+
+        $lophoc = $giaovien->lophoc;  // lớp chủ nhiệm
+        if (!$lophoc) {
+            return abort(404, 'Giáo viên chưa được phân công lớp chủ nhiệm.');
+        }
+
+        // Lấy lịch sử điểm danh của lớp
+        $diemdanh = DiemDanh::where('magiaovien', $giaovien->id)
+            ->distinct('ngaydiemdanh')
+            ->orderBy('ngaydiemdanh', 'desc')
+            ->get(['ngaydiemdanh']);
+
+        return view('teacher.diemdanh.history', compact('diemdanh', 'lophoc'));
+    }
+
+    public function history_detail($date)
+    {
+        $giaovien = Auth::user()->giaovien;
+        if (!$giaovien) {
+            return abort(404, 'Không tìm thấy thông tin giáo viên.');
+        }
+
+        $lophoc = $giaovien->lophoc;  // lớp chủ nhiệm
+        if (!$lophoc) {
+            return abort(404, 'Giáo viên chưa được phân công lớp chủ nhiệm.');
+        }
+
+
+        // Lấy lịch sử điểm danh của lớp
+        $diemdanh = DiemDanh::where('magiaovien', $giaovien->id)
+            ->where('ngaydiemdanh', $date)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('teacher.diemdanh.history-detail', compact('diemdanh', 'lophoc'));
+    }
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'ngay' => 'required|date',
+            'ngaydiemdanh' => 'required|date',
             'mahocsinh' => 'required|array',
-            'gioden' => 'required|array',
             'ghichu' => 'nullable|array',
         ]);
 
@@ -47,30 +89,11 @@ class DDlopController extends Controller
             return redirect()->back()->with('error', 'Không tìm thấy thông tin giáo viên.');
         }
 
-        // Lấy giờ bắt đầu của lớp
-        $lophoc = $giaovien->lophoc;
-        $gioBatDau = $lophoc->giobatdau ?? '07:00'; // Giờ bắt đầu lớp
-
         $mahocsinhArr = $request->mahocsinh;
-        $giodenArr = $request->gioden;
+        $trangthaiArr = $request->trangthai;
         $ghichuArr = $request->ghichu ?? [];
 
         foreach ($mahocsinhArr as $index => $id) {
-            $gioDen = $giodenArr[$index];
-
-            // Tính số phút trễ: giờ đến - giờ bắt đầu
-            $sophuttre = 0;
-            if ($gioDen) {
-                // Chuyển giờ bắt đầu và giờ đến sang phút
-                list($h1, $m1) = explode(':', $gioBatDau);
-                list($h2, $m2) = explode(':', $gioDen);
-
-                $phutBatDau = ($h1 * 60) + $m1;
-                $phutDen = ($h2 * 60) + $m2;
-
-                // Chỉ tính trễ nếu đến muộn hơn giờ quy định
-                $sophuttre = max(0, $phutDen - $phutBatDau);
-            }
 
             // Lấy trạng thái từ checkbox (có thể tick nhiều)
             $trangthaiCheckboxName = 'trangthai_' . $id;
@@ -80,12 +103,10 @@ class DDlopController extends Controller
             DiemDanh::updateOrCreate(
                 [
                     'mahocsinh' => $id,
-                    'ngaydiemdanh' => $request->ngay,
+                    'ngaydiemdanh' => $request->ngaydiemdanh,
                 ],
                 [
                     'trangthai' => $trangthaiStr,
-                    'gioden' => $gioDen,
-                    'sophuttre' => $sophuttre, // Tính toán từ backend
                     'ghichu' => $ghichuArr[$index] ?? null,
                     'magiaovien' => $giaovien->id,  // Lưu mã giáo viên điểm danh
                 ]

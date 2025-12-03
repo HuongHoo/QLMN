@@ -1,9 +1,9 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
         <div class="sidebar-brand-icon">
-            <img src="{{ asset('admin/assets/img/logo-ct-dark.png') }}" width="26" height="26">
+            <i class="fas fa-graduation-cap" style="color: #ff6b35; font-size: 24px;"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Quản lý mầm non</div>
+        <div class="sidebar-brand-text mx-3">MN Ánh Sao</div>
     </a>
     <hr class="sidebar-divider my-0">
     @foreach ($menu as $item)

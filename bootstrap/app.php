@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'teacher' => App\Http\Middleware\TeacherMiddleware::class,
             'parent' => App\Http\Middleware\UserMiddleware::class,
         ]);
+
+        // Exclude chatbot routes from CSRF verification
+        $middleware->validateCsrfTokens(except: [
+            'chatbot/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

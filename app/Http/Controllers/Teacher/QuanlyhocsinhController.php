@@ -11,8 +11,9 @@ class QuanlyhocsinhController extends Controller
 {
     public function index()
     {
-        $lophoc = Auth::user()->giaovien->lophoc;
+        $teacher = Auth::user()->giaoVien;
+        $lophoc = $teacher->lophoc;
         $hocsinhs = Hocsinh::where('malop', $lophoc->id)->get();
-        return view("teacher.hocsinh.index", compact('hocsinhs', 'lophoc'));
+        return view("teacher.hocsinh.index", compact('hocsinhs', 'lophoc', 'teacher'));
     }
 }

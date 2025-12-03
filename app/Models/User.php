@@ -25,6 +25,9 @@ class User extends Authenticatable
         'password',
         'vaitro',
         'trangthai',
+        'google_id',
+        'facebook_id',
+        'avatar',
     ];
     public function giaovien()
     {

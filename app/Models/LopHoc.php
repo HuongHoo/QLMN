@@ -26,4 +26,12 @@ class LopHoc extends Model
     {
         return $this->hasMany(HocSinh::class, 'malop', 'id');
     }
+
+    /**
+     * Get the teacher (giáo viên chủ nhiệm) for this class.
+     */
+    public function giaovien()
+    {
+        return $this->hasOne(GiaoVien::class, 'malopchunhiem', 'id');
+    }
 }

@@ -12,7 +12,7 @@ class ThongtincanhanController extends Controller
 {
     public function index()
     {
-        $teacher = Auth::user()->giaovien()->with('lophoc')->first();
+        $teacher = Auth::user()->giaoVien;
 
         if (!$teacher) {
             return abort(404, 'Không tìm thấy thông tin giáo viên');
