@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
             position: relative;
             overflow: hidden;
         }
@@ -50,7 +50,7 @@
         .testimonial-card::before {
             content: '"';
             font-size: 80px;
-            color: #667eea;
+            color: #4e73df;
             opacity: 0.2;
             position: absolute;
             top: 10px;
@@ -94,7 +94,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
             border-radius: 2px;
         }
 
@@ -112,7 +112,7 @@
         .carousel-control-next {
             width: 50px;
             height: 50px;
-            background: #667eea;
+            background: #4e73df;
             border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
@@ -130,10 +130,135 @@
         .counter-number {
             font-size: 48px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        /* Gallery Styles */
+        .gallery-card {
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(78, 115, 223, 0.9), rgba(34, 74, 190, 0.5), transparent);
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-info {
+            width: 100%;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-card:hover .gallery-info {
+            transform: translateY(0);
+        }
+
+        .btn-group .btn.active {
+            background: #4e73df;
+            color: white;
+            border-color: #4e73df;
+        }
+
+        /* Activity Timeline Styles */
+        .activity-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #4e73df, #224abe, #1cc88a, #f6c23e);
+            border-radius: 3px;
+        }
+
+        .activity-item {
+            position: relative;
+            padding: 15px 0;
+            padding-left: 25px;
+        }
+
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 20px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border: 3px solid #4e73df;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .activity-item:nth-child(2)::before {
+            border-color: #1cc88a;
+        }
+
+        .activity-item:nth-child(3)::before {
+            border-color: #f6c23e;
+        }
+
+        .activity-item:nth-child(4)::before {
+            border-color: #e74a3b;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #4e73df;
+        }
+
+        .activity-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .activity-item:nth-child(2) .activity-card {
+            border-left-color: #1cc88a;
+        }
+
+        .activity-item:nth-child(3) .activity-card {
+            border-left-color: #f6c23e;
+        }
+
+        .activity-item:nth-child(4) .activity-card {
+            border-left-color: #e74a3b;
+        }
+
+        .activity-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
         }
     </style>
 
@@ -542,8 +667,179 @@
             </div>
         </section>
 
+        <!-- Gallery Hoạt Động Section -->
+        <section id="gallery" class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold section-title">Hoạt Động Của Trường</h2>
+                    <p class="text-muted mt-4">Hình ảnh các hoạt động vui chơi, học tập tại Trường Mầm Non Ánh Sao</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="text-center mb-4">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary active px-4" data-filter="all">Tất
+                            cả</button>
+                        <button type="button" class="btn btn-outline-primary px-4" data-filter="hoctap">Học tập</button>
+                        <button type="button" class="btn btn-outline-primary px-4" data-filter="vuichoi">Vui
+                            chơi</button>
+                        <button type="button" class="btn btn-outline-primary px-4" data-filter="sukien">Sự kiện</button>
+                    </div>
+                </div>
+
+                <div class="row g-4" id="galleryGrid">
+                    @if (isset($hoatDongs) && $hoatDongs->count() > 0)
+                        @foreach ($hoatDongs as $hoatDong)
+                            @php
+                                $icons = [
+                                    'hoctap' => 'fa-book-reader',
+                                    'vuichoi' => 'fa-smile-beam',
+                                    'sukien' => 'fa-calendar-star',
+                                    'khac' => 'fa-star',
+                                ];
+                                $icon = $icons[$hoatDong->loai] ?? 'fa-star';
+                            @endphp
+                            <div class="col-lg-4 col-md-6 gallery-item" data-category="{{ $hoatDong->loai }}">
+                                <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                    <img src="{{ $hoatDong->anh_url }}" alt="{{ $hoatDong->tieude }}"
+                                        class="img-fluid w-100" style="height: 280px; object-fit: cover;"
+                                        onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=280&fit=crop'">
+                                    <div class="gallery-overlay">
+                                        <div class="gallery-info text-center text-white">
+                                            <h5 class="mb-2"><i
+                                                    class="fas {{ $icon }} me-2"></i>{{ $hoatDong->tieude }}</h5>
+                                            <p class="small mb-0">{{ $hoatDong->mota }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <!-- Fallback: Ảnh mặc định khi chưa có dữ liệu -->
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="hoctap">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=280&fit=crop"
+                                    alt="Giờ học" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-palette me-2"></i>Giờ học vẽ</h5>
+                                        <p class="small mb-0">Phát triển sáng tạo nghệ thuật</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="vuichoi">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=280&fit=crop"
+                                    alt="Vui chơi ngoài trời" class="img-fluid w-100"
+                                    style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-tree me-2"></i>Hoạt động ngoài trời</h5>
+                                        <p class="small mb-0">Vui chơi và khám phá thiên nhiên</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="sukien">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=400&h=280&fit=crop"
+                                    alt="Lễ hội" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-birthday-cake me-2"></i>Lễ hội Trung thu</h5>
+                                        <p class="small mb-0">Vui Tết Trung thu cùng các bé</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="hoctap">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1484820540004-14229fe36ca4?w=400&h=280&fit=crop"
+                                    alt="Giờ ăn" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-utensils me-2"></i>Giờ ăn dinh dưỡng</h5>
+                                        <p class="small mb-0">Bữa ăn đầy đủ chất dinh dưỡng</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="vuichoi">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&h=280&fit=crop"
+                                    alt="Thể dục" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-running me-2"></i>Thể dục buổi sáng</h5>
+                                        <p class="small mb-0">Rèn luyện sức khỏe mỗi ngày</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="sukien">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1564429238067-4a96f9f0a4d3?w=400&h=280&fit=crop"
+                                    alt="Văn nghệ" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-music me-2"></i>Văn nghệ cuối năm</h5>
+                                        <p class="small mb-0">Biểu diễn tài năng các bé</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="hoctap">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1567057419565-4349c49d8a04?w=400&h=280&fit=crop"
+                                    alt="STEM" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-flask me-2"></i>Học STEM</h5>
+                                        <p class="small mb-0">Khám phá khoa học vui</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="vuichoi">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=280&fit=crop"
+                                    alt="Góc chơi" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-puzzle-piece me-2"></i>Góc chơi sáng tạo</h5>
+                                        <p class="small mb-0">Phát triển tư duy qua trò chơi</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 gallery-item" data-category="sukien">
+                            <div class="gallery-card position-relative overflow-hidden rounded-4 shadow">
+                                <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=400&h=280&fit=crop"
+                                    alt="Ngày hội" class="img-fluid w-100" style="height: 280px; object-fit: cover;">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-info text-center text-white">
+                                        <h5 class="mb-2"><i class="fas fa-star me-2"></i>Ngày hội bé khỏe</h5>
+                                        <p class="small mb-0">Thi đua thể thao vui nhộn</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+
         <!-- Danh sách lớp học Section -->
-        <section id="classes" class="py-5">
+        <section id="classes" class="py-5 bg-light">
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="fw-bold section-title">Các Lớp Học Tại Trường</h2>
@@ -554,7 +850,7 @@
                     <div class="row g-4">
                         @php
                             $colors = [
-                                ['bg' => 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 'icon' => 'fa-baby'],
+                                ['bg' => 'linear-gradient(135deg, #4e73df 0%, #224abe 100%)', 'icon' => 'fa-baby'],
                                 ['bg' => 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 'icon' => 'fa-child'],
                                 [
                                     'bg' => 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
@@ -624,7 +920,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="class-card card h-100 shadow">
                                 <div class="class-header"
-                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);">
                                     <i class="fas fa-baby fa-3x mb-2"></i>
                                     <h4 class="mb-0">Lớp Mầm</h4>
                                 </div>
@@ -741,7 +1037,7 @@
         </section>
 
         <!-- Call to Action Section -->
-        <section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <section class="py-5" style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-8 text-white">
@@ -758,4 +1054,47 @@
             </div>
         </section>
     </main>
+
+    <script>
+        // Gallery Filter
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('[data-filter]');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') ===
+                            filter) {
+                            item.style.display = 'block';
+                            item.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 @endsection

@@ -35,4 +35,41 @@ class GiaoVien extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    /**
+     * Lấy các cuộc trò chuyện của giáo viên
+     */
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'giaovien_id');
+    }
+
+    /**
+     * Lấy tin nhắn đã gửi
+     */
+    public function sentMessages()
+    {
+        return Message::where('sender_id', $this->id)
+            ->where('sender_type', 'giaovien');
+    }
+
+    /**
+     * Lấy tin nhắn đã nhận
+     */
+    public function receivedMessages()
+    {
+        return Message::where('receiver_id', $this->id)
+            ->where('receiver_type', 'giaovien');
+    }
+
+    /**
+     * Đếm tin nhắn chưa đọc
+     */
+    public function unreadMessagesCount()
+    {
+        return Message::where('receiver_id', $this->id)
+            ->where('receiver_type', 'giaovien')
+            ->where('is_read', false)
+            ->count();
+    }
 }

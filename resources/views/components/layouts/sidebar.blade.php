@@ -11,7 +11,7 @@
 
     @php
         // support both variable names: $menus (from component) or $menu (legacy)
-        $items = $menus ?? $menu ?? [];
+        $items = $menus ?? ($menu ?? []);
     @endphp
 
     @foreach ($items as $item)
@@ -19,28 +19,31 @@
             {{-- Menu có submenu --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                   data-target="#collapse-{{ $item['key'] }}" aria-expanded="false"
-                   aria-controls="collapse-{{ $item['key'] }}">
-                    @if(!empty($item['icon']))
+                    data-target="#collapse-{{ $item['key'] }}" aria-expanded="false"
+                    aria-controls="collapse-{{ $item['key'] }}">
+                    @if (!empty($item['icon']))
                         <i class="{{ $item['icon'] }}"></i>
                     @endif
                     <span>{{ $item['name'] }}</span>
                 </a>
-                <div id="collapse-{{ $item['key'] }}" class="collapse"
-                     aria-labelledby="heading-{{ $item['key'] }}" data-parent="#accordionSidebar">
+                <div id="collapse-{{ $item['key'] }}" class="collapse" aria-labelledby="heading-{{ $item['key'] }}"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ $item['name'] }}</h6>
                         @foreach ($item['childmenu'] as $child)
                             @php
                                 $childHref = '#';
-                                if (!empty($child['route']) && \Illuminate\Support\Facades\Route::has($child['route'])) {
+                                if (
+                                    !empty($child['route']) &&
+                                    \Illuminate\Support\Facades\Route::has($child['route'])
+                                ) {
                                     $childHref = route($child['route']);
                                 } elseif (!empty($child['url'])) {
                                     $childHref = $child['url'];
                                 }
                             @endphp
                             <a class="collapse-item" href="{{ $childHref }}">
-                                @if(!empty($child['icon']))
+                                @if (!empty($child['icon']))
                                     <i class="{{ $child['icon'] }}"></i>
                                 @endif
                                 {{ $child['name'] }}
@@ -61,7 +64,7 @@
                     }
                 @endphp
                 <a class="nav-link" href="{{ $href }}">
-                    @if(!empty($item['icon']))
+                    @if (!empty($item['icon']))
                         <i class="{{ $item['icon'] }}"></i>
                     @endif
                     <span>{{ $item['name'] }}</span>

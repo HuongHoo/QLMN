@@ -24,7 +24,7 @@
             </div>
 
             <div class="card shadow mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h6 class="m-0 font-weight-bold">Danh sách học sinh</h6>
                 </div>
 

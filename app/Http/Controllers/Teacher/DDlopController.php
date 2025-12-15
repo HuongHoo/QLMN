@@ -42,13 +42,34 @@ class DDlopController extends Controller
             return abort(404, 'Giáo viên chưa được phân công lớp chủ nhiệm.');
         }
 
-        // Lấy lịch sử điểm danh của lớp
-        $diemdanh = DiemDanh::where('magiaovien', $giaovien->id)
-            ->distinct('ngaydiemdanh')
-            ->orderBy('ngaydiemdanh', 'desc')
-            ->get(['ngaydiemdanh']);
+        // Lấy tổng số học sinh trong lớp
+        $tongHocSinh = $lophoc->hocsinh()->count();
 
-        return view('teacher.diemdanh.history', compact('diemdanh', 'lophoc'));
+        // Lấy lịch sử điểm danh của lớp với thống kê
+        $danhSachNgay = DiemDanh::where('magiaovien', $giaovien->id)
+            ->select('ngaydiemdanh')
+            ->distinct()
+            ->orderBy('ngaydiemdanh', 'desc')
+            ->get();
+
+        // Thêm thống kê cho từng ngày
+        $diemdanh = $danhSachNgay->map(function ($item) use ($giaovien) {
+            $ngay = $item->ngaydiemdanh;
+            $records = DiemDanh::where('magiaovien', $giaovien->id)
+                ->where('ngaydiemdanh', $ngay)
+                ->get();
+
+            return (object)[
+                'ngaydiemdanh' => $ngay,
+                'coMat' => $records->where('trangthai', 'có mặt')->count(),
+                'vangMat' => $records->where('trangthai', 'vắng mặt')->count(),
+                'nghiPhep' => $records->where('trangthai', 'nghỉ phép')->count(),
+                'tre' => $records->where('trangthai', 'trễ')->count(),
+                'tongSo' => $records->count(),
+            ];
+        });
+
+        return view('teacher.diemdanh.history', compact('diemdanh', 'lophoc', 'tongHocSinh'));
     }
 
     public function history_detail($date)

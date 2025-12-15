@@ -75,12 +75,12 @@
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         border: none;
         color: white;
         font-size: 24px;
         cursor: pointer;
-        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 4px 20px rgba(78, 115, 223, 0.4);
         z-index: 9999;
         transition: all 0.3s ease;
         display: flex;
@@ -90,7 +90,7 @@
 
     .chat-toggle-btn:hover {
         transform: scale(1.1);
-        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        box-shadow: 0 6px 25px rgba(78, 115, 223, 0.5);
     }
 
     .chat-badge {
@@ -144,7 +144,7 @@
 
     /* Header */
     .chatbox-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
         padding: 15px 20px;
         display: flex;
@@ -264,7 +264,7 @@
     }
 
     .bot-message .message-avatar {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
     }
 
@@ -289,7 +289,7 @@
     }
 
     .user-message .message-content {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
         border-bottom-right-radius: 5px;
     }
@@ -333,9 +333,9 @@
 
     .chatbox-quick-replies button {
         padding: 8px 14px;
-        border: 1px solid #667eea;
+        border: 1px solid #4e73df;
         background: white;
-        color: #667eea;
+        color: #4e73df;
         border-radius: 20px;
         font-size: 12px;
         cursor: pointer;
@@ -344,7 +344,7 @@
     }
 
     .chatbox-quick-replies button:hover {
-        background: #667eea;
+        background: #4e73df;
         color: white;
     }
 
@@ -371,14 +371,14 @@
 
     .chatbox-input input:focus {
         outline: none;
-        border-color: #667eea;
+        border-color: #4e73df;
     }
 
     .chatbox-input button {
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         border: none;
         color: white;
         cursor: pointer;

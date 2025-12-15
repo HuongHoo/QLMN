@@ -22,13 +22,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
-            if (Auth::user()) {
-                $thongbaos = ThongBao::where('user_id', Auth::user()->id)
+        // Chỉ share thông báo cho các view của parent, không ghi đè admin views
+        View::composer(['layouts.user', 'parent.*'], function ($view) {
+            if (Auth::check()) {
+                $userThongbaos = ThongBao::where('user_id', Auth::user()->id)
                     ->where('trangthai', 'đã duyệt')
                     ->orderBy('created_at', 'desc')
                     ->take(6)->get();
-                $view->with('thongbaos', $thongbaos);
+                $view->with('userThongbaos', $userThongbaos);
             }
         });
     }

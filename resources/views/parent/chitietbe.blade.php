@@ -22,7 +22,7 @@
                                     style="width:120px;height:120px;object-fit:cover;">
                             @else
                                 <div class="rounded-circle bg-gradient mx-auto d-flex align-items-center justify-content-center shadow"
-                                    style="width:120px;height:120px;background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    style="width:120px;height:120px;background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);">
                                     <i class="fas fa-user-graduate fa-3x text-white"></i>
                                 </div>
                             @endif

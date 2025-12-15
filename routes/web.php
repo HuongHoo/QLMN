@@ -18,10 +18,16 @@ use App\Http\Controllers\Teacher\ThongtincanhanController;
 use App\Http\Controllers\Teacher\DDlopController;
 use App\Http\Controllers\Admin\DuyetThongBaoController;
 use App\Http\Controllers\Teacher\ThongBaoController;
+use App\Http\Controllers\Teacher\HoatDongController;
+use App\Http\Controllers\Teacher\ChatController as TeacherChatController;
+use App\Http\Controllers\Teacher\XuatFileController;
+use App\Http\Controllers\Teacher\HocPhiController as TeacherHocPhiController;
+use App\Http\Controllers\Teacher\DanhGiaController as TeacherDanhGiaController;
 use App\Http\Controllers\User\ParentController;
+use App\Http\Controllers\User\ChatController as ParentChatController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\ChatbotController;
-
+use App\Http\Controllers\HomeController;
 
 // Route::get('/', function () {
 //     return view('admin.welcome');
@@ -54,6 +60,16 @@ Route::prefix('nguoidung')->middleware('auth')->group(function () {
     Route::get('/hoc-phi', [ParentController::class, 'hocPhi'])->name('parent.hocphi');
     Route::get('/danh-gia', [ParentController::class, 'danhGia'])->name('parent.danhgia');
     Route::get('/suc-khoe', [ParentController::class, 'sucKhoe'])->name('parent.suckhoe');
+    Route::get('/thongbaodetail/{id}', [HomeController::class, 'thongbao_detail'])->name('parent.thongbaodetail');
+
+    // Chat routes cho phụ huynh
+    Route::get('/chat/teachers', [ParentChatController::class, 'getTeachers'])->name('parent.chat.teachers');
+    Route::get('/chat/messages/{giaoVienId}', [ParentChatController::class, 'getMessages'])->name('parent.chat.messages');
+    Route::post('/chat/send', [ParentChatController::class, 'sendMessage'])->name('parent.chat.send');
+    Route::get('/chat/check-new/{giaoVienId}', [ParentChatController::class, 'checkNewMessages'])->name('parent.chat.check-new');
+    Route::get('/chat/check-read/{giaoVienId}', [ParentChatController::class, 'checkReadStatus'])->name('parent.chat.check-read');
+    Route::get('/chat/unread-count', [ParentChatController::class, 'getUnreadCount'])->name('parent.chat.unread-count');
+    Route::get('/chat/conversations', [ParentChatController::class, 'getConversations'])->name('parent.chat.conversations');
 });
 
 Route::prefix('admin')->middleware('admin')->group(function () {
@@ -84,11 +100,44 @@ Route::prefix('teacher')->middleware('teacher')->group(function () {
     Route::get('/', [TeacherController::class, 'index'])->name('teacher.teacher');
     Route::resource('hocsinh', QuanlyhocsinhController::class)->names('teacher.hocsinh');
     Route::resource('thongtincanhan', ThongtincanhanController::class)->names('teacher.thongtincanhan');
+
+    // Quản lý học phí
+    Route::resource('hocphi', TeacherHocPhiController::class)->names('teacher.hocphi');
+
+    // Quản lý đánh giá
+    Route::resource('danhgia', TeacherDanhGiaController::class)->names('teacher.danhgia');
+
     Route::get('teacher/diemdanh', [DDlopController::class, 'index'])->name('teacher.diemdanh.index');
     Route::post('teacher/diemdanh', [DDlopController::class, 'store'])->name('teacher.diemdanh.store');
     Route::get('teacher/diemdanh/history', [DDlopController::class, 'history'])->name('teacher.diemdanh.history');
     Route::get('teacher/diemdanh/history-detail/{date}', [DDlopController::class, 'history_detail'])->name('teacher.diemdanh.history-detail');
     Route::resource('thongbao', ThongBaoController::class)->names('teacher.thongbao');
+
+    // Hoạt động hàng ngày routes
+    Route::get('/hoatdong', [HoatDongController::class, 'index'])->name('teacher.hoatdong.index');
+    Route::get('/hoatdong/create', [HoatDongController::class, 'create'])->name('teacher.hoatdong.create');
+    Route::post('/hoatdong', [HoatDongController::class, 'store'])->name('teacher.hoatdong.store');
+    Route::get('/hoatdong/{id}', [HoatDongController::class, 'show'])->name('teacher.hoatdong.show');
+    Route::delete('/hoatdong/{id}', [HoatDongController::class, 'destroy'])->name('teacher.hoatdong.destroy');
+    Route::post('/hoatdong/dang-nhanh', [HoatDongController::class, 'dangNhanhAnh'])->name('teacher.hoatdong.dang-nhanh');
+
+    // Chat routes cho giáo viên
+    Route::get('/chat', [TeacherChatController::class, 'index'])->name('teacher.chat.index');
+    Route::get('/chat/messages/{phuHuynhId}', [TeacherChatController::class, 'getMessages'])->name('teacher.chat.messages');
+    Route::post('/chat/send', [TeacherChatController::class, 'sendMessage'])->name('teacher.chat.send');
+    Route::get('/chat/check-new/{phuHuynhId}', [TeacherChatController::class, 'checkNewMessages'])->name('teacher.chat.check-new');
+    Route::get('/chat/check-read/{phuHuynhId}', [TeacherChatController::class, 'checkReadStatus'])->name('teacher.chat.check-read');
+    Route::get('/chat/unread-count', [TeacherChatController::class, 'getUnreadCount'])->name('teacher.chat.unread-count');
+    Route::get('/chat/conversations', [TeacherChatController::class, 'getConversations'])->name('teacher.chat.conversations');
+
+    // Xuất file PDF routes
+    Route::get('/xuatfile', [XuatFileController::class, 'index'])->name('teacher.xuatfile.index');
+    Route::get('/xuatfile/hocphi/{id}', [XuatFileController::class, 'xuatHocPhiHocSinh'])->name('teacher.xuatfile.hocphi');
+    Route::get('/xuatfile/hocphi-lop', [XuatFileController::class, 'xuatHocPhiLop'])->name('teacher.xuatfile.hocphi-lop');
+    Route::get('/xuatfile/danhgia/{id}', [XuatFileController::class, 'xuatDanhGiaHocSinh'])->name('teacher.xuatfile.danhgia');
+    Route::get('/xuatfile/danhgia-lop', [XuatFileController::class, 'xuatDanhGiaLop'])->name('teacher.xuatfile.danhgia-lop');
+    Route::get('/xuatfile/xemtruoc-hocphi/{id}', [XuatFileController::class, 'xemTruocHocPhi'])->name('teacher.xuatfile.xemtruoc-hocphi');
+    Route::get('/xuatfile/xemtruoc-danhgia/{id}', [XuatFileController::class, 'xemTruocDanhGia'])->name('teacher.xuatfile.xemtruoc-danhgia');
 });
 // Route::get('/teacher', function () {
 //     return view('teacher.teacher');

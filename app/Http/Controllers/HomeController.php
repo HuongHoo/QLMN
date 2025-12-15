@@ -24,11 +24,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+
+        // Redirect theo role của user
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.welcome');
+        } elseif ($user->role === 'teacher') {
+            return redirect()->route('teacher.teacher');
+        } else {
+            return redirect()->route('parent.home');
+        }
     }
 
-    public function thongbao_detail(ThongBao $thongbao)
+    public function thongbao_detail(int $id)
     {
-        return view('admin.danhgia.create', compact('thongbao'));
+        $thongbao = ThongBao::findOrFail($id);
+
+        if (!$thongbao->is_read) {
+            $thongbao->is_read = true;
+            $thongbao->save();
+        }
+
+        return response()->json([
+            'title' => $thongbao->tieude,
+            'content' => $thongbao->noidung,
+            'created_at' => $thongbao->created_at->toDateTimeString(),
+        ]);
     }
 }

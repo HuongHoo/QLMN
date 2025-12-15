@@ -19,7 +19,7 @@
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         }
 
         .register-wrapper {
@@ -31,7 +31,7 @@
         /* Left Side - Image/Branding */
         .register-left {
             flex: 1;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%),
+            background: linear-gradient(135deg, rgba(78, 115, 223, 0.9) 0%, rgba(34, 74, 190, 0.9) 100%),
                 url('{{ asset('user/assets/img/hero-carousel/anhmn2.png') }}') center/cover;
             display: flex;
             flex-direction: column;
@@ -181,9 +181,9 @@
 
         .input-group-custom input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #4e73df;
             background: #fff;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(78, 115, 223, 0.1);
         }
 
         .input-group-custom input.is-invalid {
@@ -202,7 +202,7 @@
         .btn-register {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
             border: none;
             border-radius: 12px;
             color: white;
@@ -215,7 +215,7 @@
 
         .btn-register:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(78, 115, 223, 0.4);
         }
 
         .divider {
@@ -261,7 +261,7 @@
         }
 
         .btn-social:hover {
-            border-color: #667eea;
+            border-color: #4e73df;
             background: #f8f9fa;
             color: #333;
         }
@@ -298,7 +298,7 @@
         }
 
         .login-link a {
-            color: #667eea;
+            color: #4e73df;
             font-weight: 600;
             text-decoration: none;
         }
@@ -354,7 +354,7 @@
         }
 
         .terms a {
-            color: #667eea;
+            color: #4e73df;
             text-decoration: none;
         }
 

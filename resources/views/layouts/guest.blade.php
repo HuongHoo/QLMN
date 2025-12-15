@@ -21,8 +21,8 @@
 
     <style>
         :root {
-            --primary-color: #ff6b35;
-            --secondary-color: #004e89;
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
             --dark-color: #1a1a2e;
         }
 
@@ -74,8 +74,8 @@
         }
 
         .btn-register:hover {
-            background: #e55a2b;
-            border-color: #e55a2b;
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
             color: white;
         }
 
@@ -120,7 +120,7 @@
         }
 
         .btn-explore:hover {
-            background: #e55a2b;
+            background: var(--secondary-color);
             color: white;
             transform: translateY(-2px);
         }
@@ -271,7 +271,7 @@
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #e55a2b 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             padding: 60px 0;
         }
     </style>
@@ -294,6 +294,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Hoạt động</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#classes">Lớp học</a>

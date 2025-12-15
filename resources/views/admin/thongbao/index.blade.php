@@ -78,8 +78,8 @@
                                             <td>
                                                 <small>{{ Str::limit($tb->noidung, 100) }}</small>
                                                 @if ($tb->tepdinhkem)
-                                                    <br><a href="{{ asset('storage/' . $tb->tepdinhkem) }}"
-                                                        target="_blank" class="btn btn-xs btn-info mt-1">
+                                                    <br><a href="{{ asset('storage/' . $tb->tepdinhkem) }}" target="_blank"
+                                                        class="btn btn-xs btn-info mt-1">
                                                         <i class="bi bi-paperclip"></i> File đính kèm
                                                     </a>
                                                 @endif
@@ -96,8 +96,8 @@
                                                         </button>
                                                     </form>
 
-                                                    <button type="button" class="btn btn-sm btn-danger"
-                                                        data-toggle="modal" data-target="#rejectModal{{ $tb->id }}">
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                                        data-target="#rejectModal{{ $tb->id }}">
                                                         <i class="bi bi-x-circle"></i> Từ chối
                                                     </button>
                                                 </div>

@@ -9,6 +9,9 @@ use App\Models\HocPhi;
 use App\Models\DanhGia;
 use App\Models\SucKhoe;
 use App\Models\LopHoc;
+use App\Models\HoatDong;
+use App\Models\HoatDongHangNgay;
+use App\Models\AnhHoatDong;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -35,7 +38,33 @@ class ParentController extends Controller
         $phuHuynh = $user->phuHuynh;
         $children = $this->getParentChildren();
 
-        return view('parent.dashboard', compact('user', 'phuHuynh', 'children'));
+        // Lấy hoạt động hàng ngày của các con
+        $hoatDongHangNgays = collect();
+        $anhHoatDongs = collect();
+
+        if ($children->isNotEmpty()) {
+            $childIds = $children->pluck('id');
+            $lopIds = $children->pluck('malop')->unique();
+
+            // Hoạt động hàng ngày hôm nay hoặc mới nhất
+            $hoatDongHangNgays = HoatDongHangNgay::whereIn('hocsinh_id', $childIds)
+                ->orWhereIn('lophoc_id', $lopIds)
+                ->whereNull('hocsinh_id')
+                ->with(['anhHoatDongs', 'giaovien', 'hocsinh', 'lophoc'])
+                ->orderBy('ngay', 'desc')
+                ->orderBy('giobatdau', 'asc')
+                ->take(10)
+                ->get();
+
+            // Ảnh hoạt động gần đây
+            $hoatDongIds = $hoatDongHangNgays->pluck('id');
+            $anhHoatDongs = AnhHoatDong::whereIn('hoatdong_hangngay_id', $hoatDongIds)
+                ->orderBy('created_at', 'desc')
+                ->take(8)
+                ->get();
+        }
+
+        return view('parent.dashboard', compact('user', 'phuHuynh', 'children', 'hoatDongHangNgays', 'anhHoatDongs'));
     }
 
     // Trang thông tin bé
@@ -187,8 +216,13 @@ class ParentController extends Controller
 
         $childIds = $children->pluck('id');
 
+        // Sắp xếp theo năm tăng dần, sau đó theo tháng tăng dần
+        // để phụ huynh thấy được sự phát triển của con theo thời gian
         $danhGias = DanhGia::whereIn('mahocsinh', $childIds)
-            ->orderBy('created_at', 'desc')
+            ->with('giaovien')
+            ->orderBy('nam', 'asc')
+            ->orderBy('thang', 'asc')
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return view('parent.danhgia', compact('user', 'phuHuynh', 'children', 'danhGias'));
@@ -220,6 +254,13 @@ class ParentController extends Controller
         // Lấy danh sách lớp học kèm giáo viên chủ nhiệm (eager load để tránh N+1 query)
         $lopHocs = LopHoc::with('giaovien')->get();
 
-        return view('parent.home', compact('lopHocs'));
+        // Lấy hoạt động để hiển thị gallery
+        $hoatDongs = HoatDong::hienThi()
+            ->orderBy('thutu', 'asc')
+            ->orderBy('ngay', 'desc')
+            ->take(9)
+            ->get();
+
+        return view('parent.home', compact('lopHocs', 'hoatDongs'));
     }
 }

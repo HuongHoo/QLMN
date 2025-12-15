@@ -47,6 +47,11 @@ class HocSinh extends Model
         return $this->hasMany(DanhGia::class, 'mahocsinh', 'id');
     }
 
+    public function hocphi()
+    {
+        return $this->hasMany(HocPhi::class, 'mahocsinh', 'id');
+    }
+
     public function latestDanhgia()
     {
         return $this->hasOne(DanhGia::class, 'mahocsinh', 'id')->latestOfMany();

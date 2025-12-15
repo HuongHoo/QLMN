@@ -33,17 +33,23 @@
 
     <style>
         :root {
-            --primary-purple: #667eea;
-            --primary-purple-dark: #764ba2;
-            --accent-orange: #ff6b35;
-            --accent-orange-dark: #e55a2b;
+            --primary-color: #1a1a2e;
+            --text-color: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
         }
 
-        /* === Header chỉnh lại === */
+        /* === Header - CLEAN WHITE === */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-white);
             padding: 12px 0;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 1px 0 0 var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo img {
@@ -55,178 +61,185 @@
             margin: 0;
             padding: 0;
             display: flex;
-            gap: 24px;
+            gap: 8px;
         }
 
         .navmenu a {
-            color: #fff;
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 12px;
+            font-size: 1rem;
+            transition: all 0.15s ease;
+            padding: 10px 16px;
             border-radius: 8px;
         }
 
         .navmenu a:hover {
-            color: #ff6b35;
-            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            background: var(--bg-light);
         }
 
         .navmenu a.active {
             color: #fff;
-            background: rgba(255, 107, 53, 0.3);
-            border-bottom: 2px solid #ff6b35;
+            background: var(--primary-color);
+            border-bottom: none;
         }
 
         .user-info .btn {
-            border: 1px solid #fff;
-            color: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
         }
 
         .user-info .btn:hover {
-            background-color: #ff6b35;
-            border-color: #ff6b35;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
             color: #fff;
         }
 
         /* === Welcome Card === */
         .welcome-card,
         .card.bg-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            background: var(--primary-color) !important;
+            border-radius: 12px;
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
-        /* === Stats Cards === */
+        /* === Stats Cards - MINIMAL === */
         .stats-card {
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            transition: all 0.15s ease;
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
         .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .stats-card.purple {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-white);
+            border-left: 3px solid var(--primary-color);
         }
 
         .stats-card.green {
-            background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+            background: var(--bg-white);
+            border-left: 3px solid var(--success-color);
         }
 
         .stats-card.orange {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+            background: var(--bg-white);
+            border-left: 3px solid var(--warning-color);
         }
 
         .stats-card.yellow {
-            background: linear-gradient(135deg, #ffc107 0%, #ffca2c 100%);
+            background: var(--bg-white);
+            border-left: 3px solid var(--warning-color);
         }
 
         /* === Quick Access Cards === */
         .quick-access-item {
             border-radius: 12px;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.15s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: none;
         }
 
         .quick-access-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.2);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
         .quick-access-item .icon-box {
             width: 50px;
             height: 50px;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .quick-access-item .icon-box.purple {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary-color);
         }
 
         .quick-access-item .icon-box.green {
-            background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+            background: var(--success-color);
         }
 
         .quick-access-item .icon-box.orange {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+            background: var(--warning-color);
         }
 
         .quick-access-item .icon-box.yellow {
-            background: linear-gradient(135deg, #ffc107 0%, #ffca2c 100%);
+            background: var(--warning-color);
         }
 
         .quick-access-item .icon-box.red {
-            background: linear-gradient(135deg, #dc3545 0%, #e4606d 100%);
+            background: var(--danger-color);
         }
 
-        /* === Buttons === */
+        /* === Buttons - MINIMAL === */
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary-color);
             border: none;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            box-shadow: none;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            background: #2d2d44;
+            box-shadow: none;
         }
 
         .btn-outline-primary {
-            border-color: #667eea;
-            color: #667eea;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
         }
 
         .btn-outline-primary:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         /* === Cards General === */
         .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: none;
         }
 
         .card-header {
             background: transparent;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .card-header h5,
         .card-header h6 {
-            color: #667eea;
+            color: var(--primary-color);
             font-weight: 600;
         }
 
         /* === Badge === */
         .badge.bg-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: var(--primary-color) !important;
         }
 
         .badge.bg-warning {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+            background: var(--warning-color) !important;
             color: #fff !important;
         }
 
         /* === Notification Dropdown === */
         .dropdown-menu {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .dropdown-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: #667eea;
+            background: var(--bg-light);
+            color: var(--primary-color);
         }
 
         .notification {
@@ -234,7 +247,7 @@
             top: -5px;
             right: -5px;
             font-size: 10px;
-            background: #ff6b35;
+            background: var(--danger-color);
             color: #fff;
             border-radius: 50%;
             width: 18px;
@@ -246,34 +259,36 @@
 
         /* === Links === */
         a {
-            color: #667eea;
-            transition: color 0.3s;
+            color: var(--primary-color);
+            transition: color 0.15s;
         }
 
         a:hover {
-            color: #ff6b35;
+            color: #2d2d44;
         }
 
         /* === Welcome Banner === */
         .welcome-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
+            background: var(--primary-color);
+            border-radius: 12px;
             padding: 25px 30px;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
         /* === Stat Cards === */
         .stat-card {
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 20px;
             text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.15s ease;
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .stat-card i {
@@ -292,41 +307,41 @@
         }
 
         .stat-card.bg-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: var(--primary-color) !important;
         }
 
         .stat-card.bg-success {
-            background: linear-gradient(135deg, #28a745 0%, #34ce57 100%) !important;
+            background: var(--success-color) !important;
         }
 
         .stat-card.bg-warning {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+            background: var(--warning-color) !important;
         }
 
         .stat-card.bg-info {
-            background: linear-gradient(135deg, #17a2b8 0%, #5bc0de 100%) !important;
+            background: #3b82f6 !important;
         }
 
         /* === Quick Access List === */
         .quick-access-list .list-group-item {
-            border: none;
-            border-radius: 12px !important;
+            border: 1px solid var(--border-color);
+            border-radius: 10px !important;
             margin-bottom: 10px;
             padding: 15px 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.15s ease;
+            box-shadow: none;
         }
 
         .quick-access-list .list-group-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.15);
-            background: rgba(139, 92, 246, 0.03);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            background: var(--bg-light);
         }
 
         .quick-access-list .icon-circle {
             width: 45px;
             height: 45px;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -334,28 +349,28 @@
         }
 
         .quick-access-list .icon-circle.bg-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: var(--primary-color) !important;
         }
 
         .quick-access-list .icon-circle.bg-success {
-            background: linear-gradient(135deg, #28a745 0%, #34ce57 100%) !important;
+            background: var(--success-color) !important;
         }
 
         .quick-access-list .icon-circle.bg-warning {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+            background: var(--warning-color) !important;
         }
 
         .quick-access-list .icon-circle.bg-info {
-            background: linear-gradient(135deg, #17a2b8 0%, #5bc0de 100%) !important;
+            background: #3b82f6 !important;
         }
 
         .quick-access-list .icon-circle.bg-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #e4606d 100%) !important;
+            background: var(--danger-color) !important;
         }
 
         /* === Footer Custom === */
         .footer-custom {
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            background: var(--primary-color);
             padding: 60px 0 30px;
             color: #fff;
         }
@@ -391,7 +406,7 @@
         }
 
         .footer-custom .social-icon:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4e73df;
             border-color: transparent;
             transform: translateY(-3px);
         }
@@ -411,7 +426,7 @@
             bottom: -8px;
             width: 30px;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4e73df;
         }
 
         .footer-links {
@@ -431,7 +446,7 @@
         }
 
         .footer-links a:hover {
-            color: #ff6b35;
+            color: #4e73df;
             padding-left: 5px;
         }
 
@@ -450,7 +465,7 @@
         }
 
         .footer-contact i {
-            color: #667eea;
+            color: #4e73df;
             width: 20px;
         }
 
@@ -477,12 +492,12 @@
 
         /* === Scroll to Top === */
         .scroll-top {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%) !important;
+            background: #4e73df !important;
             border-radius: 50%;
         }
 
         .scroll-top:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: #4e73df !important;
         }
     </style>
 </head>
@@ -519,18 +534,20 @@
                         <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <i class="fs-6 fa fa-bell"></i>
-                            <span class="notification text-danger">{{ $thongbaos->count() }}</span>
+                            <span
+                                class="notification badge text-danger">{{ $userThongbaos->where('is_read', 0)->count() }}</span>
                         </a>
                         <div class="dropdown-menu notif-box animated fadeIn p-3" aria-labelledby="notifDropdown"
                             style="width: 400px;">
 
                             <div class="dropdown-title">
-                                Bạn có {{ $thongbaos->count() }} thông báo
+                                Bạn có {{ $userThongbaos->count() }} thông báo
                             </div>
 
-                            @foreach ($thongbaos as $thongbao)
+                            @foreach ($userThongbaos as $thongbao)
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-dark" href="#">
+                                <a data-id="{{ $thongbao->id }}" onclick="showNotificationDetail({{ $thongbao->id }})"
+                                    class="dropdown-item text-dark">
                                     <div class="notification-content d-flex align-items-center">
                                         <div class="icon me-3">
                                             <i class="fs-6 fa fa-bell"></i>
@@ -556,7 +573,7 @@
                     <li class="dropdown">
                         <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <span class="me-3 text-white fw-semibold">Xin chào,
+                            <span class="me-3 text-black fw-semibold">Xin chào,
                                 {{ Auth::user()->name ?? 'parent' }}</span>
                         </a>
                         <div class="dropdown-menu">
@@ -591,6 +608,36 @@
                     </small>
                 </div>
             </div>
+
+            <script>
+                // Hàm hiển thị chi tiết thông báo
+                function showNotificationDetail(id) {
+                    fetch("{{ url('/nguoidung/thongbaodetail') }}" + "/" + id) // route Laravel trả về JSON
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('notificationDetail').style.display = 'block';
+                            document.getElementById('notificationDetailTitle').innerText = data.title || 'Thông báo';
+                            document.getElementById('notificationDetailContent').innerText = data.content ||
+                                '(Không có nội dung)';
+                            document.getElementById('notificationDetailTime').innerText = data.created_at;
+
+                            // Hiển thị box & overlay
+                            document.getElementById('notificationDetail').style.display = 'block';
+                            document.getElementById('notificationOverlay').style.display = 'block';
+                        });
+                }
+
+                document.addEventListener('click', function(event) {
+                    const detailBox = document.getElementById('notificationDetail');
+                    const overlay = document.getElementById('notificationOverlay');
+
+                    // Nếu box đang hiển thị và click nằm ngoài box
+                    if (detailBox.style.display === 'block' && !detailBox.contains(event.target)) {
+                        detailBox.style.display = 'none';
+                        overlay.style.display = 'none';
+                    }
+                });
+            </script>
         </div>
     </header>
     <!-- End Header -->
@@ -664,8 +711,8 @@
     <!-- Main JS File -->
     <script src="{{ asset('user/assets/js/main.js') }}"></script>
 
-    {{-- Chatbox Component --}}
-    @include('components.chatbox')
+    {{-- Chat with Teacher Component --}}
+    @include('components.parent-chat')
 
 </body>
 

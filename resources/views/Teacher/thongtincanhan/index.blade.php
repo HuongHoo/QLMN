@@ -1,132 +1,307 @@
 @extends('teacher.teacher')
 
 @section('content')
+    <style>
+        .profile-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .profile-header {
+            background: #fff;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-header h5 {
+            margin: 0;
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1rem;
+        }
+
+        .profile-body {
+            padding: 2rem;
+        }
+
+        .profile-sidebar {
+            text-align: center;
+            padding-right: 2rem;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .profile-avatar-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .profile-avatar-placeholder i {
+            font-size: 60px;
+            color: #9ca3af;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-role {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-status {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            background: #d1fae5;
+            color: #059669;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .profile-meta {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .profile-meta-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .profile-meta-item .label {
+            color: #6b7280;
+        }
+
+        .profile-meta-item .value {
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .info-section {
+            margin-bottom: 2rem;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #1a1a2e;
+            display: inline-block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .info-item .label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item .value {
+            font-size: 0.95rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .info-item .value a {
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+
+        .info-item .value a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .profile-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+                padding-right: 0;
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
     <div class="col-12">
-        <!-- Profile Card -->
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-gradient-primary d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-white">Thông tin cá nhân</h6>
+        <div class="profile-card">
+            <div class="profile-header">
+                <h5>Thông tin cá nhân</h5>
                 <a href="{{ isset($teacher->id) ? route('teacher.thongtincanhan.edit', $teacher->id) : '#' }}"
-                    class="btn btn-sm btn-light">
-                    <i class="fas fa-edit"></i> Sửa thông tin
+                    class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-edit me-1"></i> Sửa thông tin
                 </a>
             </div>
 
-            <div class="card-body">
+            <div class="profile-body">
                 <div class="row">
                     <!-- Avatar & Basic Info Section -->
-                    <div class="col-md-4 text-center border-right">
-                        <div class="mb-3">
-                            @if ($teacher->anh)
-                                <img src="{{ asset('storage/' . $teacher->anh) }}" class="rounded-circle shadow"
-                                    style="width:160px;height:160px;object-fit:cover;border:4px solid #e3f2fd;">
-                            @else
-                                <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center shadow"
-                                    style="width:160px;height:160px;border:4px solid #e3f2fd;">
-                                    <i class="fas fa-user-circle text-muted" style="font-size:80px;"></i>
-                                </div>
-                            @endif
+                    <div class="col-md-4 profile-sidebar">
+                        @if ($teacher->anh)
+                            <img src="{{ asset('storage/' . $teacher->anh) }}" class="profile-avatar" alt="Avatar">
+                        @else
+                            <div class="profile-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        @endif
+
+                        <div class="profile-name">{{ $teacher->tengiaovien }}</div>
+                        <div class="profile-role">{{ $teacher->chucvu ?? 'giáo viên' }}</div>
+                        <div class="profile-status">
+                            <i class="fas fa-check-circle me-1"></i> {{ $teacher->trangthai ?? 'Đang công tác' }}
                         </div>
 
-                        <h5 class="font-weight-bold text-primary mb-1">{{ $teacher->tengiaovien }}</h5>
-                        <p class="text-muted small mb-3">{{ $teacher->chucvu ?? 'Giáo viên' }}</p>
-
-                        <div class="badge badge-success mb-3">
-                            <i class="fas fa-check-circle"></i> {{ $teacher->trangthai ?? 'Hoạt động' }}
-                        </div>
-
-                        <hr>
-
-                        <div class="text-left">
-                            <p class="mb-2"><strong>Số thẻ:</strong> {{ $teacher->sothe }}</p>
-                            <p class="mb-2"><strong>CCCD:</strong> {{ $teacher->cccd ?? '-' }}</p>
-                            <p class="mb-0"><strong>Ngày vào làm:</strong>
-                                @if ($teacher->ngayvaolam)
-                                    {{ \Carbon\Carbon::parse($teacher->ngayvaolam)->format('d/m/Y') }}
-                                @else
-                                    -
-                                @endif
-                            </p>
+                        <div class="profile-meta">
+                            <div class="profile-meta-item">
+                                <span class="label">Số thẻ</span>
+                                <span class="value">{{ $teacher->sothe ?? '-' }}</span>
+                            </div>
+                            <div class="profile-meta-item">
+                                <span class="label">CCCD</span>
+                                <span class="value">{{ $teacher->cccd ?? '-' }}</span>
+                            </div>
+                            <div class="profile-meta-item">
+                                <span class="label">Ngày vào làm</span>
+                                <span class="value">
+                                    @if ($teacher->ngayvaolam)
+                                        {{ \Carbon\Carbon::parse($teacher->ngayvaolam)->format('d/m/Y') }}
+                                    @else
+                                        -
+                                    @endif
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Details Section -->
-                    <div class="col-md-8">
+                    <div class="col-md-8 ps-md-4">
                         <!-- Basic Information -->
-                        <h6 class="font-weight-bold text-primary mb-3">
-                            <i class="fas fa-user-circle"></i> Thông tin cơ bản
-                        </h6>
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-3">
-                                <label class="text-muted small">Ngày sinh</label>
-                                <p class="font-weight-500">
-                                    @if ($teacher->ngaysinh)
-                                        {{ \Carbon\Carbon::parse($teacher->ngaysinh)->format('d/m/Y') }}
-                                    @else
-                                        -
-                                    @endif
-                                </p>
+                        <div class="info-section">
+                            <div class="info-section-title">
+                                <i class="fas fa-user me-1"></i> Thông tin cơ bản
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="text-muted small">Giới tính</label>
-                                <p class="font-weight-500">{{ $teacher->gioitinh ?? '-' }}</p>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="label">Ngày sinh</div>
+                                    <div class="value">
+                                        @if ($teacher->ngaysinh)
+                                            {{ \Carbon\Carbon::parse($teacher->ngaysinh)->format('d/m/Y') }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="label">Giới tính</div>
+                                    <div class="value">{{ $teacher->gioitinh ?? '-' }}</div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Contact Information -->
-                        <h6 class="font-weight-bold text-primary mb-3">
-                            <i class="fas fa-phone-alt"></i> Thông tin liên lạc
-                        </h6>
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-3">
-                                <label class="text-muted small">Số điện thoại</label>
-                                <p class="font-weight-500">
-                                    @if ($teacher->sdt)
-                                        <a href="tel:{{ $teacher->sdt }}">{{ $teacher->sdt }}</a>
-                                    @else
-                                        -
-                                    @endif
-                                </p>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="text-muted small">Email</label>
-                                <p class="font-weight-500">
-                                    @if ($teacher->email)
-                                        <a href="mailto:{{ $teacher->email }}">{{ $teacher->email }}</a>
-                                    @else
-                                        -
-                                    @endif
-                                </p>
+                        <div class="info-section">
+                            <div class="info-section-title">Thông tin liên lạc</div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="label">Số điện thoại</div>
+                                    <div class="value">
+                                        @if ($teacher->sdt)
+                                            <a href="tel:{{ $teacher->sdt }}">{{ $teacher->sdt }}</a>
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="label">Email</div>
+                                    <div class="value">
+                                        @if ($teacher->email)
+                                            <a href="mailto:{{ $teacher->email }}">{{ $teacher->email }}</a>
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Address Information -->
-                        <h6 class="font-weight-bold text-primary mb-3">
-                            <i class="fas fa-map-marker-alt"></i> Địa chỉ
-                        </h6>
-                        <div class="mb-3">
-                            <label class="text-muted small">Địa chỉ thường trú</label>
-                            <p class="font-weight-500">{{ $teacher->diachithuongtru ?? '-' }}</p>
-                        </div>
-                        <div class="mb-4">
-                            <label class="text-muted small">Địa chỉ tạm trú</label>
-                            <p class="font-weight-500">{{ $teacher->diachitamtru ?? '-' }}</p>
+                        <div class="info-section">
+                            <div class="info-section-title">
+                                <i class="fas fa-map-marker-alt me-1"></i> Địa chỉ
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="label">Địa chỉ thường trú</div>
+                                    <div class="value">{{ $teacher->diachithuongtru ?? '-' }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="label">Địa chỉ tạm trú</div>
+                                    <div class="value">{{ $teacher->diachitamtru ?? '-' }}</div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Work Information -->
-                        <h6 class="font-weight-bold text-primary mb-3">
-                            <i class="fas fa-briefcase"></i> Thông tin công việc
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="text-muted small">Lớp chủ nhiệm</label>
-                                <p class="font-weight-500">
-                                    @if ($teacher->lophoc)
-                                        {{ $teacher->lophoc->tenlop }}
-                                    @else
-                                        Không có
-                                    @endif
-                                </p>
+                        <div class="info-section">
+                            <div class="info-section-title">
+                                <i class="fas fa-briefcase me-1"></i> Thông tin công việc
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="label">Lớp chủ nhiệm</div>
+                                    <div class="value">
+                                        @if ($teacher->lophoc)
+                                            {{ $teacher->lophoc->tenlop }}
+                                        @else
+                                            Không có
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,23 +309,4 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .border-right {
-            border-right: 1px solid #e3e6f0;
-        }
-
-        @media (max-width: 768px) {
-            .border-right {
-                border-right: none;
-                border-bottom: 1px solid #e3e6f0;
-                padding-bottom: 20px;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
 @endsection

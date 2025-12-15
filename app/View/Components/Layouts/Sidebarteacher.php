@@ -44,19 +44,49 @@ class Sidebarteacher extends Component
                 'key' => 'hocsinh',
                 'name' => 'Danh sách học sinh',
                 'route' => 'teacher.hocsinh.index',
-                'icon' => 'bi bi-house-door',
+                'icon' => 'bi bi-people',
             ],
             [
                 'key' => 'diemdanh',
                 'name' => 'Điểm danh hằng ngày',
                 'route' => 'teacher.diemdanh.index',
-                'icon' => 'bi bi-house-door',
+                'icon' => 'bi bi-check2-square',
+            ],
+            [
+                'key' => 'hocphi',
+                'name' => 'Quản lý học phí',
+                'route' => 'teacher.hocphi.index',
+                'icon' => 'bi bi-wallet2',
+            ],
+            [
+                'key' => 'danhgia',
+                'name' => 'Đánh giá học sinh',
+                'route' => 'teacher.danhgia.index',
+                'icon' => 'bi bi-star',
+            ],
+            [
+                'key' => 'hoatdong',
+                'name' => 'Hoạt động hàng ngày',
+                'route' => 'teacher.hoatdong.index',
+                'icon' => 'bi bi-camera',
             ],
             [
                 'key' => 'thongbao',
                 'name' => 'Thông báo',
                 'route' => 'teacher.thongbao.index',
                 'icon' => 'bi bi-bell',
+            ],
+            [
+                'key' => 'chat',
+                'name' => 'Nhắn tin Phụ huynh',
+                'route' => 'teacher.chat.index',
+                'icon' => 'bi bi-chat-dots',
+            ],
+            [
+                'key' => 'xuatfile',
+                'name' => 'Xuất file báo cáo',
+                'route' => 'teacher.xuatfile.index',
+                'icon' => 'bi bi-file-earmark-pdf',
             ],
 
             //     ]
