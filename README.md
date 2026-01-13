@@ -1,61 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HỆ THỐNG QUẢN LÝ MẦM NON
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Giới thiệu
 
-## About Laravel
+Hệ thống Quản lý Mầm non là một ứng dụng web được xây dựng trên nền tảng Laravel, hỗ trợ toàn diện các hoạt động quản lý và điều hành trường mầm non. Dự án được phát triển nhằm số hóa và tối ưu hóa quy trình quản lý, giúp nhà trường, giáo viên và phụ huynh dễ dàng tương tác và theo dõi quá trình học tập, phát triển của trẻ.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tính năng chính
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Quản lý thông tin cơ bản
+- **Quản lý học sinh**: Lưu trữ và quản lý thông tin chi tiết của học sinh
+- **Quản lý lớp học**: Phân chia và tổ chức các lớp học
+- **Quản lý giáo viên**: Quản lý thông tin giáo viên và phân công giảng dạy
+- **Quản lý phụ huynh**: Lưu trữ thông tin liên hệ và mối quan hệ với học sinh
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Hoạt động hàng ngày
+- **Điểm danh**: Theo dõi tình trạng đi học của học sinh hàng ngày
+- **Đánh giá**: Ghi nhận và đánh giá quá trình học tập, phát triển của trẻ
+- **Sức khỏe**: Theo dõi tình trạng sức khỏe, cân nặng, chiều cao của học sinh
+- **Hoạt động hàng ngày**: Ghi chép các hoạt động và sự kiện trong ngày
+- **Hoạt động và ảnh hoạt động**: Lưu trữ thông tin và hình ảnh các hoạt động ngoại khóa
 
-## Learning Laravel
+### 3. Quản lý tài chính
+- **Học phí**: Quản lý thu chi học phí, theo dõi tình trạng thanh toán
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Thông báo và tương tác
+- **Hệ thống thông báo**: Gửi thông báo đến phụ huynh và giáo viên
+- **Chatbot AI tích hợp Gemini**: Hỗ trợ tư vấn và trả lời câu hỏi tự động thông qua Google Gemini API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Công nghệ sử dụng
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Framework**: Laravel (PHP)
+- **Frontend**: Vite.js, JavaScript
+- **Database**: MySQL/MariaDB
+- **AI Integration**: Google Gemini API cho chatbot
+- **Authentication**: Laravel Authentication
+- **File Upload**: Hỗ trợ upload và quản lý hình ảnh
 
-## Laravel Sponsors
+## Cấu trúc dự án
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+app/
+├── Models/          # Các model dữ liệu
+├── Http/
+│   ├── Controllers/ # Controllers xử lý logic
+│   └── Middleware/  # Middleware xử lý request
+├── Helpers/         # Helper functions
+└── View/            # View components
 
-### Premium Partners
+database/
+├── migrations/      # Database migrations
+└── seeders/         # Database seeders
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+resources/
+├── views/           # Blade templates
+├── css/             # Stylesheets
+└── js/              # JavaScript files
 
-## Contributing
+routes/
+└── web.php          # Web routes
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Cài đặt
 
-## Code of Conduct
+1. Clone repository
+```bash
+git clone [repository-url]
+cd QLMN
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Cài đặt dependencies
+```bash
+composer install
+npm install
+```
 
-## Security Vulnerabilities
+3. Cấu hình môi trường
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Cấu hình database trong file `.env`
+
+5. Chạy migrations
+```bash
+php artisan migrate
+```
+
+6. Build assets
+```bash
+npm run build
+```
+
+7. Khởi động server
+```bash
+php artisan serve
+```
+
+## Tài liệu bổ sung
+
+- [CHATBOT_README.md](CHATBOT_README.md) - Hướng dẫn sử dụng chatbot
+- [CHATBOT_HUONGDAN.md](CHATBOT_HUONGDAN.md) - Hướng dẫn chi tiết chatbot
+- [GEMINI_API_SETUP.md](GEMINI_API_SETUP.md) - Cấu hình Gemini API
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Dự án được phát triển cho mục đích học tập và nghiên cứu.
