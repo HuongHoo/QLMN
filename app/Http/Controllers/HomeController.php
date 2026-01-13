@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ThongBao;
+use App\Models\UserThongBao;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -40,9 +41,13 @@ class HomeController extends Controller
     {
         $thongbao = ThongBao::findOrFail($id);
 
-        if (!$thongbao->is_read) {
-            $thongbao->is_read = true;
-            $thongbao->save();
+        // Tìm bản ghi user_thongbao và đánh dấu đã đọc
+        $userThongbao = UserThongBao::where('thongbao_id', $id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($userThongbao && !$userThongbao->is_read) {
+            $userThongbao->update(['is_read' => true]);
         }
 
         return response()->json([

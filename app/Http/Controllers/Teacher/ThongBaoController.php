@@ -60,12 +60,21 @@ class ThongBaoController extends Controller
             'tieude' => 'required|string|max:255',
             'noidung' => 'required|string',
             'loaithongbao' => 'required|in:chung,khẩn cấp,sự kiện,nghỉ lễ',
+            'phamvi' => 'required|in:lop,truong',
             'tepdinhkem' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->only(['tieude', 'noidung', 'loaithongbao']);
         $data['magiaovien'] = $giaovien->id;
-        $data['malop'] = $giaovien->lophoc->id ?? null;
+
+        // Xử lý phạm vi gửi
+        if ($request->phamvi === 'lop') {
+            $data['malop'] = $giaovien->lophoc->id ?? null;
+        } else {
+            // Nếu gửi toàn trường, không set malop (null = toàn trường)
+            $data['malop'] = null;
+        }
+
         $data['ngaytao'] = now();
         $data['trangthai'] = 'chờ duyệt'; // Trạng thái mặc định
 

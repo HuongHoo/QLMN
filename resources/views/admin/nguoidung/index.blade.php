@@ -81,7 +81,9 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($user->trangthai === 'hoatdong')
+                                                @if ($user->is_locked)
+                                                    <span class="badge badge-danger px-2 py-1">Bị khóa</span>
+                                                @elseif ($user->trangthai === 'hoatdong')
                                                     <span class="badge badge-success px-2 py-1">Hoạt động</span>
                                                 @else
                                                     <span class="badge badge-warning px-2 py-1">Khóa</span>
@@ -89,17 +91,42 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.nguoidung.edit', $user->id) }}"
-                                                    class="btn btn-sm btn-warning shadow-sm">
-                                                    <i class="fas fa-edit"></i>
+                                                    class="text-warning me-2" title="Sửa" data-bs-toggle="tooltip">
+                                                    <i class="fas fa-pen"></i>
                                                 </a>
+
+                                                @if ($user->is_locked)
+                                                    <form action="{{ route('admin.nguoidung.unlock', $user->id) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Bạn có chắc muốn mở khóa tài khoản này?')">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="border-0 bg-transparent text-success p-0 me-2"
+                                                            title="Mở khóa" data-bs-toggle="tooltip">
+                                                            <i class="fas fa-unlock"></i>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('admin.nguoidung.lock', $user->id) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="border-0 bg-transparent text-warning p-0 me-2"
+                                                            title="Khóa tài khoản" data-bs-toggle="tooltip">
+                                                            <i class="fas fa-lock"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
 
                                                 <form action="{{ route('admin.nguoidung.destroy', $user->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger shadow-sm"
-                                                        onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">
-                                                        <i class="fas fa-trash"></i>
+                                                    <button type="submit" class="border-0 bg-transparent text-danger p-0"
+                                                        onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')"
+                                                        title="Xóa" data-bs-toggle="tooltip">
+                                                        <i class="fas fa-times"></i>
                                                     </button>
                                                 </form>
                                             </td>

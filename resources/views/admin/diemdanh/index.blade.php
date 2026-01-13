@@ -183,47 +183,26 @@
 
                                 <td>
                                     <div class="attendance-cell">
-                                        {{-- Hiển giờ đến --}}
-                                        <span class="label">Giờ đến</span>
-                                        <span class="value">{{ $diemdanh?->gioden ?? '-' }}</span>
-
-                                        {{-- Hiển giờ về --}}
-                                        <span class="label">Giờ về</span>
-                                        <span class="value">{{ $diemdanh?->giove ?? '-' }}</span>
-
                                         {{-- Trạng thái --}}
-                                        <span class="label">Trạng thái</span>
-                                        <span class="value">
-                                            @if ($diemdanh)
-                                                @php
-                                                    $tt = mb_strtolower($diemdanh->trangthai);
-                                                @endphp
+                                        @if ($diemdanh)
+                                            @php
+                                                $tt = mb_strtolower($diemdanh->trangthai);
+                                            @endphp
 
-                                                @if (strpos($tt, 'đúng') !== false || strpos($tt, 'có mặt') !== false)
-                                                    <span class="status-present">Có mặt</span>
-                                                @elseif(strpos($tt, 'trễ') !== false || strpos($tt, 'muộn') !== false)
-                                                    <span class="status-late">Trễ</span>
-                                                @elseif(strpos($tt, 'vắng') !== false || strpos($tt, 'nghỉ không') !== false)
-                                                    <span class="status-absent">Vắng</span>
-                                                @elseif(strpos($tt, 'phép') !== false)
-                                                    <span class="status-leave">Phép</span>
-                                                @else
-                                                    <span>-</span>
-                                                @endif
+                                            @if (strpos($tt, 'đúng') !== false || strpos($tt, 'có mặt') !== false)
+                                                <span class="status-present">Có mặt</span>
+                                            @elseif(strpos($tt, 'trễ') !== false || strpos($tt, 'muộn') !== false)
+                                                <span class="status-late">Trễ</span>
+                                            @elseif(strpos($tt, 'vắng') !== false || strpos($tt, 'nghỉ không') !== false)
+                                                <span class="status-absent">Vắng</span>
+                                            @elseif(strpos($tt, 'phép') !== false)
+                                                <span class="status-leave">Phép</span>
                                             @else
-                                                <span>-</span>
+                                                <span>{{ $diemdanh->trangthai }}</span>
                                             @endif
-                                        </span>
-
-                                        {{-- Nếu trễ bao nhiêu phút --}}
-                                        @if ($diemdanh && $diemdanh->trangthai === 'trễ')
-                                            <div>
-                                                <span class="label">Số phút trễ</span>
-                                                <span class="value text-danger fw-bold">{{ $diemdanh->sophuttre }}
-                                                    phút</span>
-                                            </div>
+                                        @else
+                                            <span class="text-muted">-</span>
                                         @endif
-
                                     </div>
                                 </td>
                             @endforeach

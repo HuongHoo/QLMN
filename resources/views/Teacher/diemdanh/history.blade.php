@@ -75,8 +75,12 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('teacher.diemdanh.history-detail', ['date' => $item->ngaydiemdanh]) }}"
-                                                class="btn btn-primary btn-sm">
-                                                <i class="fas fa-eye"></i> Chi tiết
+                                                class="text-info me-2" title="Xem chi tiết" data-bs-toggle="tooltip">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('teacher.diemdanh.edit', ['date' => $item->ngaydiemdanh]) }}"
+                                                class="text-warning" title="Sửa điểm danh" data-bs-toggle="tooltip">
+                                                <i class="fas fa-pen"></i>
                                             </a>
                                         </td>
                                     </tr>

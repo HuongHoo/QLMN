@@ -135,21 +135,22 @@
                                     <td>{{ $hp->ngaythanhtoan ? \Carbon\Carbon::parse($hp->ngaythanhtoan)->format('d/m/Y') : '-' }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('teacher.hocphi.show', $hp->id) }}" class="btn btn-sm btn-info"
-                                            title="Xem">
+                                        <a href="{{ route('teacher.hocphi.show', $hp->id) }}" class="text-info me-2"
+                                            title="Xem" data-bs-toggle="tooltip">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('teacher.hocphi.edit', $hp->id) }}"
-                                            class="btn btn-sm btn-warning" title="Sửa">
-                                            <i class="fas fa-edit"></i>
+                                        <a href="{{ route('teacher.hocphi.edit', $hp->id) }}" class="text-warning me-2"
+                                            title="Sửa" data-bs-toggle="tooltip">
+                                            <i class="fas fa-pen"></i>
                                         </a>
                                         <form action="{{ route('teacher.hocphi.destroy', $hp->id) }}" method="POST"
                                             style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Bạn có chắc muốn xóa?')" title="Xóa">
-                                                <i class="fas fa-trash"></i>
+                                            <button type="submit" class="border-0 bg-transparent text-danger p-0"
+                                                onclick="return confirm('Bạn có chắc muốn xóa?')" title="Xóa"
+                                                data-bs-toggle="tooltip">
+                                                <i class="fas fa-times"></i>
                                             </button>
                                         </form>
                                     </td>

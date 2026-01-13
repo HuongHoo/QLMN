@@ -42,60 +42,114 @@
                             <small class="text-muted">Mặc định ngày 01 tháng hiện tại</small>
                         </div>
 
-                        {{-- Học phí --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="hocphi">Học phí</label>
-                            <input type="number" step="1000" min="0" name="hocphi" id="hocphi"
-                                class="form-control" value="{{ old('hocphi', 0) }}">
+                        {{-- Từ ngày --}}
+                        <div class="col-md-6 mb-3">
+                            <label for="tu_ngay">Tính từ ngày <small class="text-muted">(cho tiền ăn)</small></label>
+                            <input type="date" name="tu_ngay" id="tu_ngay" class="form-control"
+                                value="{{ old('tu_ngay') }}" onchange="loadSoNgayDiHoc()">
                         </div>
 
-                        {{-- Tiền ăn sáng --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="tienansang">Tiền ăn sáng</label>
-                            <input type="number" step="1000" min="0" name="tienansang" id="tienansang"
-                                class="form-control" value="{{ old('tienansang', 0) }}">
+                        {{-- Đến ngày --}}
+                        <div class="col-md-6 mb-3">
+                            <label for="den_ngay">Đến ngày <small class="text-muted">(cho tiền ăn)</small></label>
+                            <input type="date" name="den_ngay" id="den_ngay" class="form-control"
+                                value="{{ old('den_ngay') }}" onchange="loadSoNgayDiHoc()">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        {{-- Giá tiền ăn/ngày --}}
+                        <div class="col-md-4 mb-3">
+                            <label for="gia_tien_an_ngay">Giá tiền ăn/ngày <small class="text-info">(tự động tính)</small></label>
+                            <input type="number" step="1000" name="gia_tien_an_ngay" id="gia_tien_an_ngay" 
+                                class="form-control" value="{{ old('gia_tien_an_ngay', 30000) }}"
+                                onchange="loadSoNgayDiHoc()">
                         </div>
 
-                        {{-- Tiền ăn trưa --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="tienantrua">Tiền ăn trưa</label>
-                            <input type="number" step="1000" min="0" name="tienantrua" id="tienantrua"
-                                class="form-control" value="{{ old('tienantrua', 0) }}">
+                        {{-- Số ngày đi học --}}
+                        <div class="col-md-4 mb-3">
+                            <label for="so_ngay_di_hoc">Số ngày đi học <small class="text-success">(từ điểm danh)</small></label>
+                            <input type="number" name="so_ngay_di_hoc" id="so_ngay_di_hoc" 
+                                class="form-control bg-light" value="{{ old('so_ngay_di_hoc', 0) }}" readonly>
                         </div>
 
-                        {{-- Tiền xe --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="tienxebus">Tiền xe bus</label>
-                            <input type="number" step="1000" min="0" name="tienxebus" id="tienxebus"
-                                class="form-control" value="{{ old('tienxebus', 0) }}">
+                        {{-- Tiền ăn trưa (tự động) --}}
+                        <div class="col-md-4 mb-3">
+                            <label for="tienantrua_auto">Tiền ăn trưa <small class="text-success">(tự động)</small></label>
+                            <input type="number" step="1000" name="tienantrua_auto" id="tienantrua_auto"
+                                class="form-control bg-light" value="{{ old('tienantrua_auto', 0) }}" readonly>
                         </div>
+                    </div>
 
-                        {{-- Phí khác --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="phikhac">Phí khác</label>
-                            <input type="number" step="1000" min="0" name="phikhac" id="phikhac"
-                                class="form-control" value="{{ old('phikhac', 0) }}">
+                    <div class="info mb-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Lưu ý:</strong> Mức học phí và các loại phí được quản lý bởi Admin. Bạn chỉ cần nhập thông
+                        tin thanh toán của học sinh.
+                    </div>
+
+                    @if ($mucPhiMacDinh)
+                        <div class="card mb-3 border-primary">
+                            <div class="card-header bg-light">
+                                <h6 class="mb-0"><i class="fas fa-money-bill-wave text-primary me-2"></i>Mức phí hiện tại
+                                    của lớp</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <small class="text-muted">Học phí</small>
+                                        <p class="mb-0 fw-bold">{{ number_format($mucPhiMacDinh->hocphi ?? 0) }} ₫</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small class="text-muted">Tiền ăn sáng</small>
+                                        <p class="mb-0 fw-bold">{{ number_format($mucPhiMacDinh->tienansang ?? 0) }} ₫</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small class="text-muted">Tiền ăn trưa</small>
+                                        <p class="mb-0 fw-bold">{{ number_format($mucPhiMacDinh->tienantrua ?? 0) }} ₫</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <small class="text-muted">Tiền xe bus</small>
+                                        <p class="mb-0 fw-bold">{{ number_format($mucPhiMacDinh->tienxebus ?? 0) }} ₫</p>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">Phí khác</small>
+                                        <p class="mb-0 fw-bold">{{ number_format($mucPhiMacDinh->phikhac ?? 0) }} ₫</p>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <small class="text-muted">Tổng cộng</small>
+                                        <p class="mb-0 fw-bold text-primary" style="font-size: 1.2rem;">
+                                            {{ number_format(($mucPhiMacDinh->hocphi ?? 0) + ($mucPhiMacDinh->tienansang ?? 0) + ($mucPhiMacDinh->tienantrua ?? 0) + ($mucPhiMacDinh->tienxebus ?? 0) + ($mucPhiMacDinh->phikhac ?? 0)) }}
+                                            ₫
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        {{-- Tổng tiền (tự tính) --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="tongtien">Tổng tiền</label>
-                            <input type="number" step="1000" name="tongtien" id="tongtien" class="form-control"
-                                value="{{ old('tongtien', 0) }}" readonly style="background-color: #e9ecef;">
+                    @else
+                        <div class="alert alert-warning mb-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Chưa có mức phí mặc định cho lớp. Vui lòng liên hệ Admin để thiết lập mức phí.
                         </div>
+                    @endif
 
+                    <div class="row">
                         {{-- Ngày thanh toán --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="ngaythanhtoan">Ngày thanh toán</label>
+                        <div class="col-md-6 mb-3">
+                            <label for="ngaythanhtoan">Ngày thanh toán <span class="text-danger">*</span></label>
                             <input type="date" name="ngaythanhtoan" id="ngaythanhtoan" class="form-control"
-                                value="{{ old('ngaythanhtoan', date('Y-m-d')) }}">
+                                value="{{ old('ngaythanhtoan', date('Y-m-d')) }}" required>
+                            <small class="text-muted">Ngày phụ huynh nộp tiền</small>
                         </div>
 
                         {{-- Đã thanh toán --}}
-                        <div class="col-md-3 mb-3">
-                            <label for="dathanhtoan">Đã thanh toán</label>
+                        <div class="col-md-6 mb-3">
+                            <label for="dathanhtoan">Số tiền đã thanh toán <span class="text-danger">*</span></label>
                             <input type="number" step="1000" min="0" name="dathanhtoan" id="dathanhtoan"
-                                class="form-control" value="{{ old('dathanhtoan', 0) }}">
+                                class="form-control" value="{{ old('dathanhtoan', 0) }}" required>
+                            <small class="text-muted">Nhập số tiền phụ huynh đã nộp</small>
                         </div>
 
                         {{-- Ghi chú --}}
@@ -120,21 +174,32 @@
     </div>
 
     <script>
-        // Tự động tính tổng tiền khi thay đổi các khoản
-        function updateTongTien() {
-            const hocphi = parseFloat(document.getElementById('hocphi').value) || 0;
-            const sang = parseFloat(document.getElementById('tienansang').value) || 0;
-            const trua = parseFloat(document.getElementById('tienantrua').value) || 0;
-            const xe = parseFloat(document.getElementById('tienxebus').value) || 0;
-            const khac = parseFloat(document.getElementById('phikhac').value) || 0;
-            document.getElementById('tongtien').value = hocphi + sang + trua + xe + khac;
+        // Tự động tải số ngày đi học từ điểm danh
+        function loadSoNgayDiHoc() {
+            const mahocsinh = document.getElementById('mahocsinh').value;
+            const tuNgay = document.getElementById('tu_ngay').value;
+            const denNgay = document.getElementById('den_ngay').value;
+            const giaTienAn = parseFloat(document.getElementById('gia_tien_an_ngay').value) || 0;
+
+            if (!mahocsinh || !tuNgay || !denNgay) {
+                return;
+            }
+
+            // Gọi API để lấy số ngày đi học
+            fetch(`/teacher/hocphi/get-so-ngay-di-hoc?mahocsinh=${mahocsinh}&tu_ngay=${tuNgay}&den_ngay=${denNgay}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('so_ngay_di_hoc').value = data.so_ngay_di_hoc;
+                    // Tự động tính tiền ăn trưa
+                    const tienAnTrua = data.so_ngay_di_hoc * giaTienAn;
+                    document.getElementById('tienantrua_auto').value = tienAnTrua.toFixed(0);
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
         }
 
-        ['hocphi', 'tienansang', 'tienantrua', 'tienxebus', 'phikhac'].forEach(id => {
-            document.getElementById(id).addEventListener('input', updateTongTien);
-        });
-
-        // Tính lần đầu
-        updateTongTien();
+        // Thêm sự kiện khi chọn học sinh
+        document.getElementById('mahocsinh').addEventListener('change', loadSoNgayDiHoc);
     </script>
 @endsection

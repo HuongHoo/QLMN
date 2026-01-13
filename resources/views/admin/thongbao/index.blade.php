@@ -47,7 +47,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Giáo viên</th>
-                                        <th>Lớp</th>
+                                        <th>Phạm vi</th>
                                         <th>Tiêu đề</th>
                                         <th>Loại</th>
                                         <th>Nội dung</th>
@@ -63,7 +63,15 @@
                                                 {{ $tb->giaovien->tengiaovien ?? 'N/A' }}
                                             </td>
                                             <td>
-                                                {{ $tb->lophoc->tenlop ?? 'N/A' }}
+                                                @if ($tb->malop)
+                                                    <span class="badge badge-primary">
+                                                        <i class="bi bi-people"></i> {{ $tb->lophoc->tenlop ?? 'N/A' }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-success">
+                                                        <i class="bi bi-building"></i> Toàn trường
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>{{ $tb->tieude }}</td>
                                             <td>

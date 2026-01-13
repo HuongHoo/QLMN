@@ -89,8 +89,8 @@
                         <div class="card-header bg-white border-0 py-3 d-flex align-items-center justify-content-between">
                             <h6 class="mb-0 fw-bold"><i class="fas fa-camera text-primary me-2"></i>Hoạt động của bé ở
                                 trường</h6>
-                            <a href="#" class="text-primary small text-decoration-none">Xem tất cả <i
-                                    class="fas fa-arrow-right ms-1"></i></a>
+                            <a href="{{ route('parent.hoatdong') }}" class="text-primary small text-decoration-none">Xem tất
+                                cả <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                         <div class="card-body">
                             <!-- Activity Timeline -->

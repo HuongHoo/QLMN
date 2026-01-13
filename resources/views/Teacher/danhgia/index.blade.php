@@ -125,20 +125,21 @@
                                     <td>
                                         @if ($latestDanhGia)
                                             <a href="{{ route('teacher.danhgia.show', $latestDanhGia->id) }}"
-                                                class="btn btn-sm btn-info" title="Xem">
+                                                class="text-info me-2" title="Xem" data-bs-toggle="tooltip">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="{{ route('teacher.danhgia.edit', $latestDanhGia->id) }}"
-                                                class="btn btn-sm btn-warning" title="Sửa">
-                                                <i class="fas fa-edit"></i>
+                                                class="text-warning me-2" title="Sửa" data-bs-toggle="tooltip">
+                                                <i class="fas fa-pen"></i>
                                             </a>
                                             <form action="{{ route('teacher.danhgia.destroy', $latestDanhGia->id) }}"
                                                 method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Bạn có chắc muốn xóa?')" title="Xóa">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="border-0 bg-transparent text-danger p-0"
+                                                    onclick="return confirm('Bạn có chắc muốn xóa?')" title="Xóa"
+                                                    data-bs-toggle="tooltip">
+                                                    <i class="fas fa-times"></i>
                                                 </button>
                                             </form>
                                         @else

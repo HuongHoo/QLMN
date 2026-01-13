@@ -171,10 +171,7 @@
                         <tr>
                             <th class="day-header" style="width:60px;">STT</th>
                             <th class="day-header col-student">Ngày</th>
-                            <th class="day-header">Giờ đến</th>
-                            <th class="day-header">Giờ về</th>
                             <th class="day-header">Trạng thái</th>
-                            <th class="day-header">Số phút trễ</th>
                             <th class="day-header">Thao tác</th>
                         </tr>
                     </thead>
@@ -183,9 +180,7 @@
                             <tr>
                                 <td style="text-align:center; font-weight:600;">{{ $index + 1 }}</td>
                                 <td>{{ \Carbon\Carbon::parse($dd->ngaydiemdanh)->format('d/m/Y') }}</td>
-                                <td>{{ $dd->gioden ?? '-' }}</td>
-                                <td>{{ $dd->giove ?? '-' }}</td>
-                                <td>
+                                <td style="text-align:center;">
                                     @php $tt = mb_strtolower($dd->trangthai); @endphp
                                     @if (strpos($tt, 'đúng') !== false || strpos($tt, 'có mặt') !== false)
                                         <span class="status-present">Có mặt</span>
@@ -196,17 +191,10 @@
                                     @elseif(strpos($tt, 'phép') !== false)
                                         <span class="status-leave">Phép</span>
                                     @else
-                                        <span>-</span>
+                                        <span>{{ $dd->trangthai }}</span>
                                     @endif
                                 </td>
-                                <td>
-                                    @if ($dd->trangthai === 'trễ')
-                                        {{ $dd->sophuttre }} phút
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                                <td>
+                                <td style="text-align:center;">
                                     <a href="{{ route('admin.diemdanh.edit', $dd->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -224,7 +212,7 @@
                         @endforeach
                         @if ($hocsinh->diemdanh->isEmpty())
                             <tr>
-                                <td colspan="6" class="text-center">Chưa có dữ liệu điểm danh</td>
+                                <td colspan="4" class="text-center">Chưa có dữ liệu điểm danh</td>
                             </tr>
                         @endif
                     </tbody>

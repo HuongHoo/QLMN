@@ -96,4 +96,28 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin.nguoidung.index')->with('Thành công', 'Xóa người dùng thành công.');
     }
+
+    /**
+     * Lock user account
+     */
+    public function lock(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_locked = true;
+        $user->save();
+
+        return redirect()->route('admin.nguoidung.index')->with('success', 'Đã khóa tài khoản người dùng.');
+    }
+
+    /**
+     * Unlock user account
+     */
+    public function unlock(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_locked = false;
+        $user->save();
+
+        return redirect()->route('admin.nguoidung.index')->with('success', 'Đã mở khóa tài khoản người dùng.');
+    }
 }

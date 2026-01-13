@@ -41,9 +41,11 @@
                                         </td>
                                         <td>
                                             <a href="{{ isset($hs->id) ? route('teacher.hocsinh.show', $hs->id) : '#' }}"
-                                                class="btn btn-sm btn-info">Xem</a>
+                                                class="text-info me-2" title="Xem" data-bs-toggle="tooltip"><i
+                                                    class="fas fa-eye"></i></a>
                                             <a href="{{ isset($hs->id) ? route('teacher.hocsinh.edit', $hs->id) : '#' }}"
-                                                class="btn btn-sm btn-warning">Sửa</a>
+                                                class="text-warning" title="Sửa" data-bs-toggle="tooltip"><i
+                                                    class="fas fa-pen"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

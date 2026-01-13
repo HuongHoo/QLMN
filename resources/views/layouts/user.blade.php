@@ -530,18 +530,29 @@
                             class="{{ request()->routeIs('parent.danhgia') ? 'active' : '' }}">Đánh giá</a></li>
                     <li><a href="{{ route('parent.suckhoe') }}"
                             class="{{ request()->routeIs('parent.suckhoe') ? 'active' : '' }}">Sức khỏe</a></li>
-                    <li class="dropdown">
+                    <li class="dropdown position-relative">
                         <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <i class="fs-6 fa fa-bell"></i>
-                            <span
-                                class="notification badge text-danger">{{ $userThongbaos->where('is_read', 0)->count() }}</span>
+                            @if ($userThongbaos->where('is_read', 0)->count() > 0)
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                    style="font-size: 10px; padding: 3px 6px;">
+                                    {{ $userThongbaos->where('is_read', 0)->count() }}
+                                    <span class="visually-hidden">thông báo chưa đọc</span>
+                                </span>
+                            @endif
                         </a>
                         <div class="dropdown-menu notif-box animated fadeIn p-3" aria-labelledby="notifDropdown"
                             style="width: 400px;">
 
                             <div class="dropdown-title">
                                 Bạn có {{ $userThongbaos->count() }} thông báo
+                                @if ($userThongbaos->where('is_read', 0)->count() > 0)
+                                    <span
+                                        class="badge bg-danger ms-2">{{ $userThongbaos->where('is_read', 0)->count() }}
+                                        chưa đọc</span>
+                                @endif
                             </div>
 
                             @foreach ($userThongbaos as $thongbao)

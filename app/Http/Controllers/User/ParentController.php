@@ -248,6 +248,35 @@ class ParentController extends Controller
         return view('parent.suckhoe', compact('user', 'phuHuynh', 'children', 'sucKhoes'));
     }
 
+    // Trang hoạt động của bé (newspaper style)
+    public function hoatDong()
+    {
+        $user = Auth::user();
+        $phuHuynh = $user->phuHuynh;
+        $children = $this->getParentChildren();
+
+        if ($children->isEmpty()) {
+            return redirect()->route('parent.home');
+        }
+
+        $childIds = $children->pluck('id');
+        $lopIds = $children->pluck('malop')->unique();
+
+        // Hoạt động hàng ngày của các con (cả lớp + riêng con)
+        $hoatDongHangNgays = HoatDongHangNgay::where(function ($query) use ($childIds, $lopIds) {
+            $query->whereIn('hocsinh_id', $childIds)
+                ->orWhere(function ($q) use ($lopIds) {
+                    $q->whereIn('lophoc_id', $lopIds)->whereNull('hocsinh_id');
+                });
+        })
+            ->with(['anhHoatDongs', 'giaovien', 'hocsinh', 'lophoc'])
+            ->orderBy('ngay', 'desc')
+            ->orderBy('giobatdau', 'desc')
+            ->paginate(12);
+
+        return view('parent.hoatdong', compact('user', 'phuHuynh', 'children', 'hoatDongHangNgays'));
+    }
+
     // Trang public home (cho khách chưa đăng nhập)
     public function home()
     {

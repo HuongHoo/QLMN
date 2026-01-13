@@ -60,6 +60,7 @@ Route::prefix('nguoidung')->middleware('auth')->group(function () {
     Route::get('/hoc-phi', [ParentController::class, 'hocPhi'])->name('parent.hocphi');
     Route::get('/danh-gia', [ParentController::class, 'danhGia'])->name('parent.danhgia');
     Route::get('/suc-khoe', [ParentController::class, 'sucKhoe'])->name('parent.suckhoe');
+    Route::get('/hoat-dong', [ParentController::class, 'hoatDong'])->name('parent.hoatdong');
     Route::get('/thongbaodetail/{id}', [HomeController::class, 'thongbao_detail'])->name('parent.thongbaodetail');
 
     // Chat routes cho phụ huynh
@@ -77,6 +78,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('lophoc', LopHocController::class)->names('admin.lophoc');
     Route::resource('giaovien', GiaoVienController::class)->names('admin.giaovien');
     Route::resource('nguoidung', UserController::class)->names('admin.nguoidung');
+    Route::post('/nguoidung/{id}/lock', [UserController::class, 'lock'])->name('admin.nguoidung.lock');
+    Route::post('/nguoidung/{id}/unlock', [UserController::class, 'unlock'])->name('admin.nguoidung.unlock');
     Route::resource('phuhuynh', PhuHuynhController::class)->names('admin.phuhuynh');
     Route::resource('hocsinh', HocSinhController::class)->names('admin.hocsinh');
     Route::resource('diemdanh', DiemDanhController::class)->names('admin.diemdanh');
@@ -86,6 +89,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     //sức khỏe
     Route::resource('suckhoe', SucKhoeController::class)->names('admin.suckhoe');
     //học phí
+    Route::get('hocphi/get-so-ngay-di-hoc', [HocPhiController::class, 'getSoNgayDiHoc'])->name('admin.hocphi.getSoNgayDiHoc');
     Route::resource('hocphi', HocPhiController::class)->names('admin.hocphi');
     // Duyệt thông báo
     Route::get('/thongbao', [DuyetThongBaoController::class, 'index'])->name('admin.thongbao.index');
@@ -102,6 +106,7 @@ Route::prefix('teacher')->middleware('teacher')->group(function () {
     Route::resource('thongtincanhan', ThongtincanhanController::class)->names('teacher.thongtincanhan');
 
     // Quản lý học phí
+    Route::get('hocphi/get-so-ngay-di-hoc', [TeacherHocPhiController::class, 'getSoNgayDiHoc'])->name('teacher.hocphi.getSoNgayDiHoc');
     Route::resource('hocphi', TeacherHocPhiController::class)->names('teacher.hocphi');
 
     // Quản lý đánh giá
@@ -111,6 +116,8 @@ Route::prefix('teacher')->middleware('teacher')->group(function () {
     Route::post('teacher/diemdanh', [DDlopController::class, 'store'])->name('teacher.diemdanh.store');
     Route::get('teacher/diemdanh/history', [DDlopController::class, 'history'])->name('teacher.diemdanh.history');
     Route::get('teacher/diemdanh/history-detail/{date}', [DDlopController::class, 'history_detail'])->name('teacher.diemdanh.history-detail');
+    Route::get('teacher/diemdanh/edit/{date}', [DDlopController::class, 'edit'])->name('teacher.diemdanh.edit');
+    Route::post('teacher/diemdanh/update/{date}', [DDlopController::class, 'update'])->name('teacher.diemdanh.update');
     Route::resource('thongbao', ThongBaoController::class)->names('teacher.thongbao');
 
     // Hoạt động hàng ngày routes

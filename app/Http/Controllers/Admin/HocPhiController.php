@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\HocPhi;
 use App\Models\HocSinh;
 use App\Models\GiaoVien;
+use App\Models\DiemDanh;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HocPhiController extends Controller
 {
@@ -49,10 +51,14 @@ class HocPhiController extends Controller
         $data = $request->validate([
             'mahocsinh' => 'nullable|exists:hocsinh,id',
             'thoigiandong' => 'nullable|date',
+            'tu_ngay' => 'nullable|date',
+            'den_ngay' => 'nullable|date',
             'hocphi' => 'nullable|numeric',
             'tienansang' => 'nullable|numeric',
             'tienantrua' => 'nullable|numeric',
             'tienxebus' => 'nullable|numeric',
+            'gia_tien_an_ngay' => 'nullable|numeric',
+            'so_ngay_di_hoc' => 'nullable|integer',
             'phikhac' => 'nullable|numeric',
             'ngaythanhtoan' => 'nullable|date',
             'dathanhtoan' => 'nullable|numeric',
@@ -62,7 +68,21 @@ class HocPhiController extends Controller
 
         // Nếu không nhập thời gian đóng, mặc định ngày 01 tháng hiện tại
         if (empty($data['thoigiandong'])) {
-            $data['thoigiandong'] = now()->startOfMonth()->toDateString(); // YYYY-MM-01
+            $data['thoigiandong'] = now()->startOfMonth()->toDateString();
+        }
+
+        // Tự động tính tiền ăn trưa nếu có đủ thông tin
+        if (!empty($data['mahocsinh']) && !empty($data['tu_ngay']) && !empty($data['den_ngay']) && !empty($data['gia_tien_an_ngay'])) {
+            $soNgayDiHoc = DiemDanh::where('mahocsinh', $data['mahocsinh'])
+                ->whereBetween('ngaydiemdanh', [$data['tu_ngay'], $data['den_ngay']])
+                ->where(function($query) {
+                    $query->where('trangthai', 'like', '%có mặt%')
+                          ->orWhere('trangthai', 'like', '%đi muộn%');
+                })
+                ->count();
+            
+            $data['so_ngay_di_hoc'] = $soNgayDiHoc;
+            $data['tienantrua'] = $soNgayDiHoc * $data['gia_tien_an_ngay'];
         }
 
         // Tính tổng tiền
@@ -141,5 +161,29 @@ class HocPhiController extends Controller
     {
         $hocphi->delete();
         return redirect()->route('admin.hocphi.index')->with('success', 'Xóa học phí thành công!');
+    }
+
+    /**
+     * API: Lấy số ngày đi học từ điểm danh
+     */
+    public function getSoNgayDiHoc(Request $request)
+    {
+        $mahocsinh = $request->mahocsinh;
+        $tuNgay = $request->tu_ngay;
+        $denNgay = $request->den_ngay;
+
+        if (!$mahocsinh || !$tuNgay || !$denNgay) {
+            return response()->json(['so_ngay_di_hoc' => 0]);
+        }
+
+        $soNgayDiHoc = DiemDanh::where('mahocsinh', $mahocsinh)
+            ->whereBetween('ngaydiemdanh', [$tuNgay, $denNgay])
+            ->where(function($query) {
+                $query->where('trangthai', 'like', '%có mặt%')
+                      ->orWhere('trangthai', 'like', '%đi muộn%');
+            })
+            ->count();
+
+        return response()->json(['so_ngay_di_hoc' => $soNgayDiHoc]);
     }
 }

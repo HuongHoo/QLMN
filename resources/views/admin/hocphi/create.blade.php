@@ -59,25 +59,54 @@
                                         value="{{ old('thoigiandong') }}" required>
                                 </div>
 
+                                {{-- Từ ngày --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="tu_ngay">Tính từ ngày <small class="text-muted">(cho tiền ăn)</small></label>
+                                    <input type="date" name="tu_ngay" id="tu_ngay" class="form-control"
+                                        value="{{ old('tu_ngay') }}" onchange="loadSoNgayDiHoc()">
+                                </div>
+
+                                {{-- Đến ngày --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="den_ngay">Đến ngày <small class="text-muted">(cho tiền ăn)</small></label>
+                                    <input type="date" name="den_ngay" id="den_ngay" class="form-control"
+                                        value="{{ old('den_ngay') }}" onchange="loadSoNgayDiHoc()">
+                                </div>
+
                                 {{-- Học phí --}}
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="hocphi">Học phí</label>
                                     <input type="number" step="0.01" name="hocphi" id="hocphi" class="form-control"
                                         value="{{ old('hocphi', 0) }}">
                                 </div>
 
+                                {{-- Giá tiền ăn/ngày --}}
+                                <div class="col-md-4 mb-3">
+                                    <label for="gia_tien_an_ngay">Giá tiền ăn/ngày <small class="text-info">(tự động tính)</small></label>
+                                    <input type="number" step="0.01" name="gia_tien_an_ngay" id="gia_tien_an_ngay" 
+                                        class="form-control" value="{{ old('gia_tien_an_ngay', 30000) }}"
+                                        onchange="loadSoNgayDiHoc()">
+                                </div>
+
+                                {{-- Số ngày đi học --}}
+                                <div class="col-md-4 mb-3">
+                                    <label for="so_ngay_di_hoc">Số ngày đi học <small class="text-success">(từ điểm danh)</small></label>
+                                    <input type="number" name="so_ngay_di_hoc" id="so_ngay_di_hoc" 
+                                        class="form-control bg-light" value="{{ old('so_ngay_di_hoc', 0) }}" readonly>
+                                </div>
+
                                 {{-- Tiền ăn sáng --}}
                                 <div class="col-md-3 mb-3">
-                                    <label for="tienansang">Tiền ăn sáng</label>
+                                    <label for="tienansang">Tiền ăn sáng <small class="text-muted">(tùy chỉnh)</small></label>
                                     <input type="number" step="0.01" name="tienansang" id="tienansang"
                                         class="form-control" value="{{ old('tienansang', 0) }}">
                                 </div>
 
                                 {{-- Tiền ăn trưa --}}
                                 <div class="col-md-3 mb-3">
-                                    <label for="tienantrua">Tiền ăn trưa</label>
+                                    <label for="tienantrua">Tiền ăn trưa <small class="text-success">(tự động)</small></label>
                                     <input type="number" step="0.01" name="tienantrua" id="tienantrua"
-                                        class="form-control" value="{{ old('tienantrua', 0) }}">
+                                        class="form-control bg-light" value="{{ old('tienantrua', 0) }}" readonly>
                                 </div>
 
                                 {{-- Tiền xe --}}
@@ -154,6 +183,35 @@
     </div>
 
     <script>
+        // Tự động tải số ngày đi học từ điểm danh
+        function loadSoNgayDiHoc() {
+            const mahocsinh = document.getElementById('mahocsinh').value;
+            const tuNgay = document.getElementById('tu_ngay').value;
+            const denNgay = document.getElementById('den_ngay').value;
+            const giaTienAn = parseFloat(document.getElementById('gia_tien_an_ngay').value) || 0;
+
+            if (!mahocsinh || !tuNgay || !denNgay) {
+                return;
+            }
+
+            // Gọi API để lấy số ngày đi học
+            fetch(`/admin/hocphi/get-so-ngay-di-hoc?mahocsinh=${mahocsinh}&tu_ngay=${tuNgay}&den_ngay=${denNgay}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('so_ngay_di_hoc').value = data.so_ngay_di_hoc;
+                    // Tự động tính tiền ăn trưa
+                    const tienAnTrua = data.so_ngay_di_hoc * giaTienAn;
+                    document.getElementById('tienantrua').value = tienAnTrua.toFixed(2);
+                    updateTongTien();
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
+        }
+
+        // Thêm sự kiện khi chọn học sinh
+        document.getElementById('mahocsinh').addEventListener('change', loadSoNgayDiHoc);
+
         // Tự động tính tổng tiền khi thay đổi các khoản
         function updateTongTien() {
             const hocphi = parseFloat(document.getElementById('hocphi').value) || 0;
@@ -161,7 +219,7 @@
             const trua = parseFloat(document.getElementById('tienantrua').value) || 0;
             const xe = parseFloat(document.getElementById('tienxebus').value) || 0;
             const khac = parseFloat(document.getElementById('phikhac').value) || 0;
-            document.getElementById('tongtien').value = hocphi + sang + trua + xe + khac;
+            document.getElementById('tongtien').value = (hocphi + sang + trua + xe + khac).toFixed(2);
         }
 
         ['hocphi', 'tienansang', 'tienantrua', 'tienxebus', 'phikhac'].forEach(id => {

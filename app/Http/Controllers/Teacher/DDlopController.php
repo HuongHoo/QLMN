@@ -136,4 +136,66 @@ class DDlopController extends Controller
 
         return redirect()->back()->with('success', 'Lưu điểm danh thành công!');
     }
+
+    public function edit($date)
+    {
+        $giaovien = Auth::user()->giaovien;
+        if (!$giaovien) {
+            return abort(404, 'Không tìm thấy thông tin giáo viên.');
+        }
+
+        $lophoc = $giaovien->lophoc;
+        if (!$lophoc) {
+            return abort(404, 'Giáo viên chưa được phân công lớp chủ nhiệm.');
+        }
+
+        $gioVaoHoc = $lophoc->giobatdau ?? '07:00';
+
+        // Lấy danh sách điểm danh của ngày này
+        $diemdanhRecords = DiemDanh::where('magiaovien', $giaovien->id)
+            ->where('ngaydiemdanh', $date)
+            ->get()
+            ->keyBy('mahocsinh'); // key by mahocsinh để dễ lookup
+
+        // Lấy tất cả học sinh trong lớp
+        $hocsinh = $lophoc->hocsinh()->orderBy('tenhocsinh')->get();
+
+        return view('teacher.diemdanh.edit', compact('hocsinh', 'gioVaoHoc', 'diemdanhRecords', 'date'));
+    }
+
+    public function update(Request $request, $date)
+    {
+        $request->validate([
+            'mahocsinh' => 'required|array',
+            'ghichu' => 'nullable|array',
+        ]);
+
+        $giaovien = Auth::user()->giaovien;
+        if (!$giaovien) {
+            return redirect()->back()->with('error', 'Không tìm thấy thông tin giáo viên.');
+        }
+
+        $mahocsinhArr = $request->mahocsinh;
+        $ghichuArr = $request->ghichu ?? [];
+
+        foreach ($mahocsinhArr as $index => $id) {
+            $trangthaiCheckboxName = 'trangthai_' . $id;
+            $trangthaiArr = $request->input($trangthaiCheckboxName, []);
+            $trangthaiStr = count($trangthaiArr) > 0 ? implode(', ', $trangthaiArr) : 'vắng mặt';
+
+            DiemDanh::updateOrCreate(
+                [
+                    'mahocsinh' => $id,
+                    'ngaydiemdanh' => $date,
+                ],
+                [
+                    'trangthai' => $trangthaiStr,
+                    'ghichu' => $ghichuArr[$index] ?? null,
+                    'magiaovien' => $giaovien->id,
+                ]
+            );
+        }
+
+        return redirect()->route('teacher.diemdanh.history')->with('success', 'Cập nhật điểm danh thành công!');
+    }
 }

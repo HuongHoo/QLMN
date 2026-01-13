@@ -25,57 +25,58 @@
                         {{-- Học sinh --}}
                         <div class="col-md-6 mb-3">
                             <label for="mahocsinh">Học sinh <span class="text-danger">*</span></label>
-                            <select name="mahocsinh" id="mahocsinh" class="form-control" required>
-                                <option value="">-- Chọn học sinh --</option>
-                                @foreach ($hocsinh as $hs)
-                                    <option value="{{ $hs->id }}"
-                                        {{ old('mahocsinh', $hocphi->mahocsinh) == $hs->id ? 'selected' : '' }}>
-                                        {{ $hs->tenhocsinh }} ({{ $hs->mathe ?? '' }})
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" readonly
+                                value="{{ $hocsinh->firstWhere('id', $hocphi->mahocsinh)?->tenhocsinh ?? 'N/A' }}"
+                                style="background-color: #e9ecef;">
+                            <input type="hidden" name="mahocsinh" value="{{ $hocphi->mahocsinh }}">
                         </div>
 
                         {{-- Thời gian đóng --}}
                         <div class="col-md-6 mb-3">
-                            <label for="thoigiandong">Thời gian đóng <span class="text-danger">*</span></label>
+                            <label for="thoigiandong">Thời gian đóng</label>
                             <input type="date" name="thoigiandong" id="thoigiandong" class="form-control"
-                                value="{{ old('thoigiandong', $hocphi->thoigiandong) }}" required>
+                                value="{{ old('thoigiandong', $hocphi->thoigiandong) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Học phí --}}
                         <div class="col-md-3 mb-3">
                             <label for="hocphi">Học phí</label>
                             <input type="number" step="1000" min="0" name="hocphi" id="hocphi"
-                                class="form-control" value="{{ old('hocphi', $hocphi->hocphi ?? 0) }}">
+                                class="form-control" value="{{ old('hocphi', $hocphi->hocphi ?? 0) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Tiền ăn sáng --}}
                         <div class="col-md-3 mb-3">
                             <label for="tienansang">Tiền ăn sáng</label>
                             <input type="number" step="1000" min="0" name="tienansang" id="tienansang"
-                                class="form-control" value="{{ old('tienansang', $hocphi->tienansang ?? 0) }}">
+                                class="form-control" value="{{ old('tienansang', $hocphi->tienansang ?? 0) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Tiền ăn trưa --}}
                         <div class="col-md-3 mb-3">
                             <label for="tienantrua">Tiền ăn trưa</label>
                             <input type="number" step="1000" min="0" name="tienantrua" id="tienantrua"
-                                class="form-control" value="{{ old('tienantrua', $hocphi->tienantrua ?? 0) }}">
+                                class="form-control" value="{{ old('tienantrua', $hocphi->tienantrua ?? 0) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Tiền xe --}}
                         <div class="col-md-3 mb-3">
                             <label for="tienxebus">Tiền xe bus</label>
                             <input type="number" step="1000" min="0" name="tienxebus" id="tienxebus"
-                                class="form-control" value="{{ old('tienxebus', $hocphi->tienxebus ?? 0) }}">
+                                class="form-control" value="{{ old('tienxebus', $hocphi->tienxebus ?? 0) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Phí khác --}}
                         <div class="col-md-3 mb-3">
                             <label for="phikhac">Phí khác</label>
                             <input type="number" step="1000" min="0" name="phikhac" id="phikhac"
-                                class="form-control" value="{{ old('phikhac', $hocphi->phikhac ?? 0) }}">
+                                class="form-control" value="{{ old('phikhac', $hocphi->phikhac ?? 0) }}" readonly
+                                style="background-color: #e9ecef;">
                         </div>
 
                         {{-- Tổng tiền (tự tính) --}}
@@ -88,16 +89,18 @@
 
                         {{-- Ngày thanh toán --}}
                         <div class="col-md-3 mb-3">
-                            <label for="ngaythanhtoan">Ngày thanh toán</label>
+                            <label for="ngaythanhtoan">Ngày thanh toán <span class="text-danger">*</span></label>
                             <input type="date" name="ngaythanhtoan" id="ngaythanhtoan" class="form-control"
                                 value="{{ old('ngaythanhtoan', $hocphi->ngaythanhtoan) }}">
+                            <small class="text-muted">Bạn có thể cập nhật ngày thanh toán</small>
                         </div>
 
                         {{-- Đã thanh toán --}}
                         <div class="col-md-3 mb-3">
-                            <label for="dathanhtoan">Đã thanh toán</label>
+                            <label for="dathanhtoan">Đã thanh toán <span class="text-danger">*</span></label>
                             <input type="number" step="1000" min="0" name="dathanhtoan" id="dathanhtoan"
                                 class="form-control" value="{{ old('dathanhtoan', $hocphi->dathanhtoan ?? 0) }}">
+                            <small class="text-muted">Nhập số tiền phụ huynh đã đóng</small>
                         </div>
 
                         {{-- Ghi chú --}}
@@ -122,21 +125,7 @@
     </div>
 
     <script>
-        // Tự động tính tổng tiền khi thay đổi các khoản
-        function updateTongTien() {
-            const hocphi = parseFloat(document.getElementById('hocphi').value) || 0;
-            const sang = parseFloat(document.getElementById('tienansang').value) || 0;
-            const trua = parseFloat(document.getElementById('tienantrua').value) || 0;
-            const xe = parseFloat(document.getElementById('tienxebus').value) || 0;
-            const khac = parseFloat(document.getElementById('phikhac').value) || 0;
-            document.getElementById('tongtien').value = hocphi + sang + trua + xe + khac;
-        }
-
-        ['hocphi', 'tienansang', 'tienantrua', 'tienxebus', 'phikhac'].forEach(id => {
-            document.getElementById(id).addEventListener('input', updateTongTien);
-        });
-
-        // Tính lần đầu
-        updateTongTien();
+        // Giáo viên chỉ có thể sửa số tiền đã thanh toán và ngày thanh toán
+        // Các khoản phí do admin quản lý
     </script>
 @endsection
